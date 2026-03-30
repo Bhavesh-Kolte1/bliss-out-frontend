@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bliss Out Dance Studio — Garba Workshop 2025</title>
+  <meta name="description" content="Join the One-Month Garba Workshop at Bliss Out Dance Studio, Khandwa MP. Learn rhythm, expression & Garba from beginner to advanced. Register Now!" />
+  <meta property="og:title" content="Bliss Out Garba Workshop 2025" />
+  <meta property="og:description" content="Experience the joy of Garba at Bliss Out Dance Studio, Khandwa." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg-void:       #07060A;
+      --bg-deep:       #0F0C15;
+      --bg-card:       #1A1526;
+      --bg-card-alt:   #201830;
+
+      --crimson:       #C8102E;
+      --crimson-light: #E8234A;
+      --crimson-glow:  rgba(200,16,46,0.35);
+
+      --gold:          #F5A623;
+      --gold-light:    #FFD166;
+      --gold-glow:     rgba(245,166,35,0.3);
+
+      --magenta:       #E040FB;
+      --teal:          #00BCD4;
+
+      --text-primary:  #F9F4EE;
+      --text-muted:    #A89BB0;
+      --text-faint:    #6A5F75;
+
+      --border-dim:    rgba(245,166,35,0.15);
+      --border-mid:    rgba(245,166,35,0.3);
+
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  28px;
+      --radius-xl:  48px;
+
+      --font-display: 'Cinzel Decorative', serif;
+      --font-body:    'Outfit', sans-serif;
+
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Backend URL – update this for production */
+      --backend-url: 'http://localhost:5000';
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-void);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    ::selection { background: var(--crimson); color: #fff; }
+
+    img { display: block; max-width: 100%; }
+    a  { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 3px; }
+
+    /* ============================================================
+       NOISE OVERLAY (global texture)
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      transition: var(--transition);
+      background: transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(7,6,10,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 12px 40px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--crimson), var(--gold));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--crimson), #8B0011);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: var(--radius-xl);
+      font-weight: 600 !important;
+      text-transform: none !important;
+      letter-spacing: 0.02em !important;
+      box-shadow: 0 4px 20px var(--crimson-glow);
+      transition: var(--transition) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--crimson-glow) !important;
+      color: #fff !important;
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* Mobile Nav */
+    @media (max-width: 768px) {
+      .nav { padding: 16px 20px; }
+      .nav.scrolled { padding: 12px 20px; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: var(--bg-deep);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 32px 40px;
+        gap: 24px;
+        border-left: 1px solid var(--border-dim);
+        transition: var(--transition-slow);
+        z-index: 999;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 998;
+        display: none;
+      }
+      .nav-overlay.open { display: block; }
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 120px 20px 80px;
+    }
+
+    /* Animated mandala background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,16,46,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(245,166,35,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 20% 60%, rgba(224,64,251,0.08) 0%, transparent 50%),
+        var(--bg-void);
+    }
+
+    /* Floating orbs */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+
+    .hero-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(200,16,46,0.25), transparent 70%);
+      top: -100px; left: -100px;
+      animation-delay: 0s;
+    }
+
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,166,35,0.2), transparent 70%);
+      bottom: -80px; right: -80px;
+      animation-delay: -4s;
+    }
+
+    .hero-orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(224,64,251,0.15), transparent 70%);
+      top: 40%; left: 60%;
+      animation-delay: -2s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(30px, -40px) scale(1.05); }
+      66%       { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* SVG dandiya pattern */
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23F5A623' stroke-width='1.5'%3E%3Ccircle cx='40' cy='40' r='35'/%3E%3Ccircle cx='40' cy='40' r='25'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cline x1='40' y1='5' x2='40' y2='75'/%3E%3Cline x1='5' y1='40' x2='75' y2='40'/%3E%3Cline x1='15' y1='15' x2='65' y2='65'/%3E%3Cline x1='65' y1='15' x2='15' y2='65'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+    }
+
+    /* Animated mandala ring */
+    .hero-mandala {
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      opacity: 0.07;
+      animation: rotateSlow 40s linear infinite;
+    }
+
+    @keyframes rotateSlow {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes particleFloat {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid var(--border-mid);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: var(--radius-xl);
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s both;
+    }
+
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 8px;
+      animation: fadeInDown 0.9s 0.1s both;
+    }
+
+    .hero-title-line1 {
+      display: block;
+      color: var(--text-primary);
+    }
+
+    .hero-title-line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--crimson) 60%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: fadeInDown 0.9s 0.1s both, shimmer 4s linear 1s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--text-muted);
+      font-weight: 400;
+      max-width: 580px;
+      margin: 20px auto 40px;
+      animation: fadeInDown 0.9s 0.2s both;
+    }
+
+    .hero-subtitle strong { color: var(--gold); font-weight: 600; }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 48px;
+      animation: fadeInDown 0.9s 0.3s both;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta-item .icon {
+      font-size: 1.1rem;
+    }
+
+    .hero-meta-item strong { color: var(--text-primary); }
+
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInDown 0.9s 0.4s both;
+    }
+
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--crimson) 0%, #9A000F 100%);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 18px 42px;
+      border-radius: var(--radius-xl);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 40px var(--crimson-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+      transition: var(--transition);
+      overflow: hidden;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--crimson-light), var(--crimson));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      opacity: 0;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 50px var(--crimson-glow);
+    }
+
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-primary:active::after {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      transition: 0s;
+    }
+
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary .arrow { transition: transform 0.3s ease; }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 17px 36px;
+      border-radius: var(--radius-xl);
+      border: 1.5px solid var(--border-mid);
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.01em;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-faint);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeIn 1.5s 1s both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDown {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ============================================================
+       SECTION COMMON
+    ============================================================ */
+    section {
+      padding: 100px 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::before, .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--border-mid);
+    }
+
+    .section-label.center { justify-content: center; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-title .highlight {
+      background: linear-gradient(135deg, var(--gold), var(--crimson));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .text-center { text-align: center; }
+    .text-center .section-subtitle { margin: 0 auto; }
+
+    /* Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       STATS STRIP
+    ============================================================ */
+    .stats-strip {
+      padding: 0;
+      background: linear-gradient(135deg, rgba(200,16,46,0.08), rgba(245,166,35,0.06));
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .stats-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid var(--border-dim);
+    }
+
+    .stat-item {
+      padding: 36px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border-dim);
+      position: relative;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+    }
+
+    /* ============================================================
+       ABOUT / WORKSHOP SECTION
+    ============================================================ */
+    .about {
+      background: var(--bg-deep);
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-mid), transparent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 64px;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-card-main {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card-main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--crimson), var(--gold));
+    }
+
+    .about-card-emoji {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .about-card-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .about-card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .about-float-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: linear-gradient(135deg, var(--crimson), #7A000A);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 8px 32px var(--crimson-glow);
+    }
+
+    .about-float-badge strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+    }
+
+    .about-float-badge span {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    .learn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .learn-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .learn-card:hover {
+      border-color: var(--border-mid);
+      background: var(--bg-card-alt);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .learn-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .learn-card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .learn-card-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Schedule */
+    .schedule-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-top: 40px;
+    }
+
+    .schedule-box h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-dim);
+      font-size: 0.9rem;
+    }
+
+    .schedule-row:last-child { border-bottom: none; }
+
+    .schedule-label { color: var(--text-muted); }
+    .schedule-value { color: var(--text-primary); font-weight: 600; }
+    .schedule-value.highlight { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-float-badge { bottom: 12px; right: 12px; }
+    }
+
+    @media (max-width: 580px) {
+      .learn-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    .gallery {
+      overflow: hidden;
+    }
+
+    .gallery-header {
+      margin-bottom: 56px;
+    }
+
+    .slider-container {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16/7;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Placeholder slides with Garba-themed art */
+    .slide-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,6,10,0.8) 0%, transparent 60%);
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 32px;
+      left: 40px;
+      right: 40px;
+    }
+
+    .slide-caption h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .slide-caption p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Slider controls */
+    .slider-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .slider-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-mid);
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+
+    .slider-btn:hover {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      transform: scale(1.1);
+    }
+
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .slider-dot {
+      width: 8px; height: 8px;
+      border-radius: 4px;
+      background: var(--text-faint);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .slider-dot.active {
+      background: var(--gold);
+      width: 24px;
+    }
+
+    /* Thumbnail grid below */
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-dim);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .gallery-thumb:hover {
+      border-color: var(--gold);
+      transform: scale(1.03);
+    }
+
+    .gallery-thumb.active {
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 2px var(--crimson);
+    }
+
+    @media (max-width: 640px) {
+      .slider-container { aspect-ratio: 4/3; }
+      .gallery-thumbs { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .slide-caption { left: 20px; right: 20px; bottom: 20px; }
+      .slide-caption h3 { font-size: 1.1rem; }
+    }
+
+    /* ============================================================
+       PRICING & REGISTRATION
+    ============================================================ */
+    .register {
+      background: var(--bg-deep);
+      position: relative;
+    }
+
+    .register::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--crimson-glow), var(--gold-glow), transparent);
+    }
+
+    .register-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 64px;
+    }
+
+    /* Pricing Card */
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--crimson), var(--gold));
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      background: rgba(245,166,35,0.15);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-mid);
+      margin-bottom: 20px;
+    }
+
+    .pricing-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 24px 0;
+      padding: 20px 0;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .pricing-currency {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .pricing-period {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .pricing-features li:last-child { border-bottom: none; }
+
+    .pricing-features .check {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .pricing-note {
+      background: rgba(200,16,46,0.08);
+      border: 1px solid rgba(200,16,46,0.2);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .pricing-note strong { color: var(--crimson); }
+
+    /* Registration Form */
+    .reg-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+
+    .reg-form-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .reg-form-sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border-dim);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 14px 18px;
+      outline: none;
+      transition: var(--transition);
+      -webkit-appearance: none;
+    }
+
+    .form-input::placeholder { color: var(--text-faint); }
+
+    .form-input:focus {
+      border-color: var(--gold);
+      background: rgba(245,166,35,0.04);
+      box-shadow: 0 0 0 3px rgba(245,166,35,0.1);
+    }
+
+    .form-input:focus.invalid {
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border-dim);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 14px 18px;
+      outline: none;
+      transition: var(--transition);
+      -webkit-appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A89BB0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+
+    .form-select option { background: var(--bg-deep); color: var(--text-primary); }
+    .form-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,166,35,0.1); }
+
+    .form-error {
+      color: var(--crimson);
+      font-size: 0.78rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .form-error.show { display: block; }
+
+    .form-submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--crimson) 0%, #9A000F 100%);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 18px 32px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 30px var(--crimson-glow);
+      transition: var(--transition);
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .form-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px var(--crimson-glow);
+    }
+
+    .form-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-submit-btn .btn-loader {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+
+    .form-submit-btn.loading .btn-loader { display: block; }
+    .form-submit-btn.loading .btn-text { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-secure {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-faint);
+      font-size: 0.78rem;
+      margin-top: 14px;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .register-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       SUCCESS MODAL
+    ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7,6,10,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-lg);
+      padding: 50px 40px;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: modalIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-icon {
+      font-size: 5rem;
+      margin-bottom: 24px;
+      display: block;
+      animation: iconBounce 0.6s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes iconBounce {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .modal-text {
+      color: var(--text-muted);
+      font-size: 0.97rem;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .modal-reg-id {
+      display: inline-block;
+      background: rgba(245,166,35,0.1);
+      border: 1px solid var(--border-mid);
+      color: var(--gold);
+      font-family: monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      margin: 16px 0;
+      letter-spacing: 0.1em;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-faint);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+    /* Confetti */
+    .confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1999;
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials {
+      background: var(--bg-void);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      transition: var(--transition);
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-text {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testimonial-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-since {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+    }
+
+    @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq { background: var(--bg-deep); }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 56px auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 22px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--border-mid);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: var(--transition);
+      color: var(--gold);
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: var(--bg-void); border-color: var(--gold); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-answer { max-height: 300px; }
+
+    .faq-answer-inner {
+      padding: 0 0 22px;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--bg-void);
+      border-top: 1px solid var(--border-dim);
+      padding: 64px 20px 32px;
+    }
+
+    .footer-grid {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border-dim);
+      margin-bottom: 32px;
+    }
+
+    .footer-brand .nav-logo {
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-faint);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .footer-social-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .footer-social-btn:hover {
+      border-color: var(--gold);
+      background: rgba(245,166,35,0.1);
+      transform: translateY(-3px);
+    }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-faint);
+      font-size: 0.88rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links a:hover { color: var(--gold); padding-left: 4px; }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--text-faint);
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .footer-contact-item .icon { font-size: 1.1rem; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+
+    .footer-contact-item a { color: var(--text-faint); transition: var(--transition); }
+    .footer-contact-item a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-faint);
+    }
+
+    .footer-bottom a { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 580px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    /* ============================================================
+       WHATSAPP FAB
+    ============================================================ */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .whatsapp-btn {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .whatsapp-btn svg {
+      width: 30px; height: 30px;
+      fill: white;
+    }
+
+    .whatsapp-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.4);
+      animation: whatsappPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes whatsappPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50%       { transform: scale(1.2); opacity: 0; }
+    }
+
+    .whatsapp-btn:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37,211,102,0.5);
+    }
+
+    .whatsapp-tooltip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      color: var(--text-primary);
+      font-size: 0.83rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: var(--transition);
+      pointer-events: none;
+    }
+
+    .whatsapp-fab:hover .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ============================================================
+       RESPONSIVE MISC
+    ============================================================ */
+    @media (max-width: 640px) {
+      section { padding: 70px 20px; }
+      .hero { padding: 100px 20px 70px; }
+      .hero-mandala { width: 300px; height: 300px; opacity: 0.04; }
+      .btn-primary { font-size: 0.95rem; padding: 16px 30px; }
+      .btn-secondary { font-size: 0.9rem; padding: 14px 24px; }
+      .reg-form-card, .pricing-card { padding: 28px 20px; }
+      .modal-box { padding: 36px 24px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="mainNav">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">🕺</div>
+      Bliss Out
+    </a>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Workshop</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#register" class="nav-cta">Register Now</a></li>
+    </ul>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <!-- SVG Mandala Ring -->
+    <svg class="hero-mandala" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#F5A623" stroke-width="1">
+        <circle cx="200" cy="200" r="190"/>
+        <circle cx="200" cy="200" r="150"/>
+        <circle cx="200" cy="200" r="110"/>
+        <circle cx="200" cy="200" r="70"/>
+        <circle cx="200" cy="200" r="30"/>
+        <line x1="200" y1="10" x2="200" y2="390"/>
+        <line x1="10" y1="200" x2="390" y2="200"/>
+        <line x1="55" y1="55" x2="345" y2="345"/>
+        <line x1="345" y1="55" x2="55" y2="345"/>
+        <line x1="10" y1="130" x2="390" y2="270"/>
+        <line x1="10" y1="270" x2="390" y2="130"/>
+        <line x1="130" y1="10" x2="270" y2="390"/>
+        <line x1="270" y1="10" x2="130" y2="390"/>
+        <!-- Petal shapes -->
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(0 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(45 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(90 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(135 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(180 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(225 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(270 200 200)"/>
+        <ellipse cx="200" cy="105" rx="15" ry="30" transform="rotate(315 200 200)"/>
+      </g>
+    </svg>
+
+    <!-- Floating particles (JS adds more) -->
+    <div id="particleContainer"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Registrations Open — Limited Seats!
+      </div>
+
+      <h1 class="hero-title">
+        <span class="hero-title-line1">Join the Rhythm at</span>
+        <span class="hero-title-line2">Bliss Out</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Experience the magic of <strong>Garba</strong> in our exclusive
+        <strong>One-Month Intensive Workshop</strong> — from first step to full circle,
+        we'll transform you into a dancer. Khandwa's most celebrated dance studio awaits you.
+      </p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="icon">📅</span>
+          <span>Starts <strong>1st October 2025</strong></span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="icon">📍</span>
+          <span><strong>Khandwa, MP</strong></span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="icon">⏱️</span>
+          <span><strong>30 Days</strong> Intensive</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="icon">🎭</span>
+          <span>All Levels <strong>Welcome</strong></span>
+        </div>
+      </div>
+
+      <div class="hero-cta-group">
+        <button class="btn-primary" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">
+          <span>Register Now</span>
+          <span class="arrow">→</span>
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+          <span>🎵</span> Learn More
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS STRIP
+  ============================================================ -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Students Trained</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Years of Legacy</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number">30</div>
+        <div class="stat-label">Days to Transform</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Happy Dancers</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT / WORKSHOP
+  ============================================================ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="text-center">
+        <div class="section-label center">The Workshop</div>
+        <h2 class="section-title">Discover the <span class="highlight">Art of Garba</span></h2>
+        <p class="section-subtitle">From the very basics to complex raas patterns — our structured curriculum will make you fall in love with every beat.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Visual side -->
+        <div class="about-visual reveal">
+          <div class="about-card-main">
+            <span class="about-card-emoji">🪘</span>
+            <div class="about-card-title">Bliss Out Dance Studio</div>
+            <p class="about-card-text">
+              Founded in Khandwa, Madhya Pradesh, Bliss Out is not just a dance studio — it's a movement.
+              Our certified instructors have trained hundreds of dancers, from curious beginners to
+              competitive performers. Every Navratri season, our students shine the brightest.
+            </p>
+            <br/>
+            <div class="schedule-box">
+              <h4>📋 Workshop Schedule</h4>
+              <div class="schedule-row">
+                <span class="schedule-label">Duration</span>
+                <span class="schedule-value">30 Days</span>
+              </div>
+              <div class="schedule-row">
+                <span class="schedule-label">Start Date</span>
+                <span class="schedule-value highlight">1st October 2025</span>
+              </div>
+              <div class="schedule-row">
+                <span class="schedule-label">Daily Timing</span>
+                <span class="schedule-value">6:30 PM – 8:30 PM</span>
+              </div>
+              <div class="schedule-row">
+                <span class="schedule-label">Days</span>
+                <span class="schedule-value">Mon – Sat</span>
+              </div>
+              <div class="schedule-row">
+                <span class="schedule-label">Location</span>
+                <span class="schedule-value">Khandwa, MP</span>
+              </div>
+              <div class="schedule-row">
+                <span class="schedule-label">Batch Size</span>
+                <span class="schedule-value">Max 30 Students</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-float-badge">
+            <strong>₹999</strong>
+            <span>Only / Month</span>
+          </div>
+        </div>
+
+        <!-- Content side -->
+        <div class="reveal reveal-delay-1">
+          <div class="section-label">What You'll Learn</div>
+          <h3 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:12px;">
+            A Complete Journey <span class="highlight">From Zero to Garba</span>
+          </h3>
+          <p class="section-subtitle" style="margin-bottom: 0;">
+            Our curriculum is designed to be joyful, progressive, and performance-ready.
+          </p>
+
+          <div class="learn-grid">
+            <div class="learn-card">
+              <div class="learn-card-icon">🎵</div>
+              <div class="learn-card-title">Rhythm & Beat</div>
+              <p class="learn-card-text">Master the 3-beat and 6-beat Garba cycles. Learn clapping patterns (taali) and feel the music in your body.</p>
+            </div>
+            <div class="learn-card">
+              <div class="learn-card-icon">💃</div>
+              <div class="learn-card-title">Footwork & Steps</div>
+              <p class="learn-card-text">From basic 2-step to Dodhiyu, Teen Taali, and advanced Raas patterns. Build speed and precision.</p>
+            </div>
+            <div class="learn-card">
+              <div class="learn-card-icon">🙌</div>
+              <div class="learn-card-title">Expression & Mudras</div>
+              <p class="learn-card-text">Learn hand gestures and facial expressions that bring Garba alive with emotion and grace.</p>
+            </div>
+            <div class="learn-card">
+              <div class="learn-card-icon">🥁</div>
+              <div class="learn-card-title">Dandiya Raas</div>
+              <p class="learn-card-text">Partner and group dandiya patterns for Navratri. Safe technique for competitive circles.</p>
+            </div>
+            <div class="learn-card">
+              <div class="learn-card-icon">🎭</div>
+              <div class="learn-card-title">Performance Prep</div>
+              <p class="learn-card-text">Stage presence, costume guidance, and rehearsals for Navratri performances.</p>
+            </div>
+            <div class="learn-card">
+              <div class="learn-card-icon">🏅</div>
+              <div class="learn-card-title">Certification</div>
+              <p class="learn-card-text">Receive a Bliss Out Dance Studio certificate of completion upon finishing the workshop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+  ============================================================ -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="gallery-header text-center reveal">
+        <div class="section-label center">Gallery</div>
+        <h2 class="section-title">Moments of <span class="highlight">Pure Joy</span></h2>
+        <p class="section-subtitle">See the energy, smiles, and magic from our previous Garba workshops and Navratri celebrations.</p>
+      </div>
+
+      <div class="slider-container reveal">
+        <!-- Slide 1 -->
+        <div class="slide active">
+          <div class="slide-content" style="background: linear-gradient(135deg, #1a0010 0%, #3d0020 40%, #0a0018 100%);">
+            <svg viewBox="0 0 900 400" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="rg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C8102E" stop-opacity="0.8"/><stop offset="100%" stop-color="#C8102E" stop-opacity="0"/></radialGradient>
+                <radialGradient id="rg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F5A623" stop-opacity="0.6"/><stop offset="100%" stop-color="#F5A623" stop-opacity="0"/></radialGradient>
+              </defs>
+              <ellipse cx="300" cy="200" rx="250" ry="250" fill="url(#rg1)"/>
+              <ellipse cx="650" cy="180" rx="200" ry="200" fill="url(#rg2)"/>
+              <g stroke="#F5A623" stroke-width="1" opacity="0.3">
+                <circle cx="450" cy="200" r="180"/><circle cx="450" cy="200" r="120"/><circle cx="450" cy="200" r="60"/>
+                <line x1="450" y1="20" x2="450" y2="380"/><line x1="270" y1="200" x2="630" y2="200"/>
+                <line x1="323" y1="73" x2="577" y2="327"/><line x1="577" y1="73" x2="323" y2="327"/>
+              </g>
+              <text x="450" y="210" text-anchor="middle" font-size="100" opacity="0.15" fill="#F5A623">🕺</text>
+            </svg>
+            <div class="slide-overlay"></div>
+            <div class="slide-caption">
+              <h3>Opening Night — Navratri 2024</h3>
+              <p>Our students performing the classic Teen Taali Garba in perfect synchrony</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div class="slide-content" style="background: linear-gradient(135deg, #0a1a00 0%, #1f3a00 40%, #0a0800 100%);">
+            <svg viewBox="0 0 900 400" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5" xmlns="http://www.w3.org/2000/svg">
+              <defs><radialGradient id="rg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#66BB6A" stop-opacity="0.6"/><stop offset="100%" stop-color="#66BB6A" stop-opacity="0"/></radialGradient></defs>
+              <ellipse cx="450" cy="200" rx="300" ry="220" fill="url(#rg3)"/>
+              <g stroke="#F5A623" stroke-width="1.5" fill="none" opacity="0.25">
+                <path d="M200,200 Q350,50 500,200 Q650,350 800,200"/>
+                <path d="M200,150 Q350,300 500,150 Q650,0 800,150"/>
+              </g>
+              <text x="300" y="220" font-size="80" opacity="0.2">🥁</text>
+              <text x="520" y="240" font-size="80" opacity="0.2">💃</text>
+            </svg>
+            <div class="slide-overlay"></div>
+            <div class="slide-caption">
+              <h3>Dandiya Raas Practice Session</h3>
+              <p>Advanced batch learning partner dandiya patterns and group choreography</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div class="slide-content" style="background: linear-gradient(135deg, #12000a 0%, #2a0060 60%, #100020 100%);">
+            <svg viewBox="0 0 900 400" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5" xmlns="http://www.w3.org/2000/svg">
+              <defs><radialGradient id="rg4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#E040FB" stop-opacity="0.5"/><stop offset="100%" stop-color="#E040FB" stop-opacity="0"/></radialGradient></defs>
+              <ellipse cx="450" cy="200" rx="320" ry="220" fill="url(#rg4)"/>
+              <g fill="#F5A623" opacity="0.1">
+                <polygon points="450,50 480,140 570,140 500,195 525,285 450,230 375,285 400,195 330,140 420,140"/>
+              </g>
+              <text x="200" y="220" font-size="80" opacity="0.15">🎭</text>
+              <text x="580" y="200" font-size="80" opacity="0.15">🌸</text>
+            </svg>
+            <div class="slide-overlay"></div>
+            <div class="slide-caption">
+              <h3>Costume & Expression Workshop</h3>
+              <p>Students learning the art of mudras and bringing Garba expressions to life</p>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="slide">
+          <div class="slide-content" style="background: linear-gradient(135deg, #1a1000 0%, #3d2800 50%, #0a0600 100%);">
+            <svg viewBox="0 0 900 400" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5" xmlns="http://www.w3.org/2000/svg">
+              <defs><radialGradient id="rg5" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFD166" stop-opacity="0.6"/><stop offset="100%" stop-color="#FFD166" stop-opacity="0"/></radialGradient></defs>
+              <ellipse cx="450" cy="200" rx="350" ry="200" fill="url(#rg5)"/>
+              <g stroke="#C8102E" stroke-width="2" fill="none" opacity="0.2">
+                <circle cx="450" cy="200" r="150"/><circle cx="450" cy="200" r="100"/><circle cx="450" cy="200" r="50"/>
+              </g>
+              <text x="350" y="230" font-size="100" opacity="0.12">🏅</text>
+            </svg>
+            <div class="slide-overlay"></div>
+            <div class="slide-caption">
+              <h3>Certification Ceremony — 2024 Batch</h3>
+              <p>Celebrating 42 students who completed the One-Month Garba Workshop</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider Controls -->
+      <div class="slider-controls">
+        <button class="slider-btn" id="prevSlide" aria-label="Previous">‹</button>
+        <div class="slider-dots" id="sliderDots">
+          <div class="slider-dot active" data-slide="0"></div>
+          <div class="slider-dot" data-slide="1"></div>
+          <div class="slider-dot" data-slide="2"></div>
+          <div class="slider-dot" data-slide="3"></div>
+        </div>
+        <button class="slider-btn" id="nextSlide" aria-label="Next">›</button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="gallery-thumbs reveal">
+        <div class="gallery-thumb active" style="background:linear-gradient(135deg,#3d0020,#1a0010);" data-slide="0">🕺</div>
+        <div class="gallery-thumb" style="background:linear-gradient(135deg,#1f3a00,#0a1a00);" data-slide="1">🥁</div>
+        <div class="gallery-thumb" style="background:linear-gradient(135deg,#2a0060,#12000a);" data-slide="2">🎭</div>
+        <div class="gallery-thumb" style="background:linear-gradient(135deg,#3d2800,#1a1000);" data-slide="3">🏅</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRICING & REGISTRATION
+  ============================================================ -->
+  <section class="register" id="pricing">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label center">Pricing & Registration</div>
+        <h2 class="section-title">Simple, <span class="highlight">Transparent Pricing</span></h2>
+        <p class="section-subtitle">One fee. Everything included. No hidden charges. Just pure Garba bliss.</p>
+      </div>
+
+      <div class="register-grid" id="register">
+        <!-- Pricing Card -->
+        <div class="pricing-card reveal">
+          <div class="pricing-badge">⭐ Most Popular</div>
+          <div class="pricing-name">Garba Workshop Pass</div>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-top:6px;">Everything you need for 30 days of transformation</p>
+
+          <div class="pricing-price-wrap">
+            <span class="pricing-currency">₹</span>
+            <span class="pricing-amount">999</span>
+            <span class="pricing-period">/ workshop</span>
+          </div>
+
+          <ul class="pricing-features">
+            <li><span class="check">✦</span> 30 Days of Daily Training Sessions</li>
+            <li><span class="check">✦</span> Beginner to Advanced Levels Covered</li>
+            <li><span class="check">✦</span> Dandiya Raas & Partner Techniques</li>
+            <li><span class="check">✦</span> Performance Costume Guidance</li>
+            <li><span class="check">✦</span> Navratri Performance Opportunity</li>
+            <li><span class="check">✦</span> Digital Garba Pass Emailed Instantly</li>
+            <li><span class="check">✦</span> Completion Certificate</li>
+            <li><span class="check">✦</span> Access to Recording of Sessions</li>
+          </ul>
+
+          <div class="pricing-note">
+            ⚡ <strong>Only 30 seats available!</strong> Registration closes once full.
+            Secure your spot today and join Khandwa's best Garba workshop.
+          </div>
+
+          <div style="background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:16px;font-size:0.85rem;color:var(--text-muted);">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Workshop Fee</span><span style="color:var(--text-primary);font-weight:600;">₹999</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>GST & Processing</span><span style="color:var(--text-primary);font-weight:600;">Included</span></div>
+            <div style="height:1px;background:var(--border-dim);margin:12px 0;"></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-primary);font-weight:700;">Total</span><span style="color:var(--gold);font-weight:700;font-size:1rem;">₹999</span></div>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="reg-form-card reveal reveal-delay-1" id="regFormCard">
+          <div class="reg-form-title">🎊 Secure Your Spot</div>
+          <p class="reg-form-sub">Fill in your details and proceed to secure payment via Razorpay.</p>
+
+          <form id="registrationForm" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Priya Sharma" autocomplete="name" />
+              <div class="form-error" id="nameError">Please enter your full name.</div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address *</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" />
+                <div class="form-error" id="emailError">Please enter a valid email.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 98765 43210" autocomplete="tel" />
+                <div class="form-error" id="phoneError">Please enter a valid 10-digit number.</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="age">Age *</label>
+                <input type="number" id="age" name="age" class="form-input" placeholder="e.g. 22" min="5" max="99" />
+                <div class="form-error" id="ageError">Please enter a valid age (5–99).</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="level">Experience Level</label>
+                <select id="level" name="level" class="form-select">
+                  <option value="beginner">Beginner — Never danced</option>
+                  <option value="intermediate">Intermediate — Some basics</option>
+                  <option value="advanced">Advanced — Regular dancer</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="city">City / Area</label>
+              <input type="text" id="city" name="city" class="form-input" placeholder="e.g. Khandwa, Burhanpur" />
+            </div>
+
+            <button type="submit" class="form-submit-btn" id="submitBtn">
+              <div class="btn-loader"></div>
+              <span class="btn-text">🎉 Proceed to Payment — ₹999</span>
+            </button>
+
+            <div class="form-secure">
+              🔒 Secured by Razorpay · 256-bit SSL Encrypted
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS
+  ============================================================ -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label center">Testimonials</div>
+        <h2 class="section-title">What Our <span class="highlight">Dancers Say</span></h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I had zero dance experience before joining Bliss Out. After just one month, I performed on stage at our local Navratri event. The instructors are incredibly patient and the energy in the studio is unmatched!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">P</div>
+            <div>
+              <div class="testimonial-name">Priya Verma</div>
+              <div class="testimonial-since">Workshop Batch 2024</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Bliss Out is not just a dance class — it's a family! The way they teach Garba connects you to your roots. My kids loved every single session, and I joined them too. Best ₹999 I ever spent!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,#F5A623,#C8102E);">R</div>
+            <div>
+              <div class="testimonial-name">Rajesh Joshi</div>
+              <div class="testimonial-since">Parent & Student, 2024</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The dandiya sessions were my absolute favourite! Learning the partner patterns and then seeing it all come together at the Navratri show was magical. Already registered for this year's batch!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,#E040FB,#C8102E);">A</div>
+            <div>
+              <div class="testimonial-name">Ananya Patel</div>
+              <div class="testimonial-since">Advanced Batch, 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label center">FAQ</div>
+        <h2 class="section-title">Common <span class="highlight">Questions</span></h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            Do I need prior dance experience to join?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Absolutely not! Our workshop is designed for all levels — from complete beginners to experienced dancers. We have structured groups to ensure everyone progresses at the right pace and gets personal attention.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What is the refund/cancellation policy?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">We offer a 3-day window from registration for a full refund, provided the workshop hasn't started yet. Once the workshop begins, the fee is non-refundable. Please contact us at blissout303@gmail.com for any concerns.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What age group is this workshop suitable for?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Our Garba workshop is open to everyone aged 5 and above! We have a dedicated kids' batch (5–14 years) and an adults' batch (15+ years) so each group gets age-appropriate training and attention.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How will I receive my Garba Pass after payment?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Immediately after successful payment, a digital Garba Pass (PDF) will be automatically generated and emailed to your registered email address. This pass contains your unique Registration ID, name, and workshop details. Please bring it on Day 1.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is the payment gateway secure?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Yes, 100%. We use Razorpay, India's most trusted payment gateway. Your payment is protected by 256-bit SSL encryption. We never store your card details. You can pay via UPI, credit/debit card, or net banking.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Will there be a performance at the end of the workshop?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p class="faq-answer-inner">Yes! All students get the opportunity to perform at our Grand Navratri Showcase on the final weekend of the workshop. It's a beautiful evening celebration for students, families, and the community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:16px;">
+          <div class="nav-logo-icon">🕺</div>
+          Bliss Out Dance Studio
+        </div>
+        <p>Khandwa's most beloved Garba & dance studio. We don't just teach steps — we ignite a lifelong love for dance, culture, and expression.</p>
+        <div class="footer-social">
+          <a class="footer-social-btn" href="https://wa.me/918964033641" target="_blank" title="WhatsApp">💬</a>
+          <a class="footer-social-btn" href="mailto:blissout303@gmail.com" title="Email">✉️</a>
+          <a class="footer-social-btn" href="#" title="Instagram">📸</a>
+          <a class="footer-social-btn" href="#" title="YouTube">▶️</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#home">→ Home</a></li>
+          <li><a href="#about">→ About Workshop</a></li>
+          <li><a href="#gallery">→ Gallery</a></li>
+          <li><a href="#pricing">→ Pricing</a></li>
+          <li><a href="#register">→ Register Now</a></li>
+          <li><a href="#testimonials">→ Reviews</a></li>
+          <li><a href="#faq">→ FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Workshop Info</div>
+        <ul class="footer-links">
+          <li><a href="#">→ Workshop Curriculum</a></li>
+          <li><a href="#">→ Schedule & Timings</a></li>
+          <li><a href="#">→ Batch Details</a></li>
+          <li><a href="#">→ Certificate Programme</a></li>
+          <li><a href="#">→ Navratri Showcase</a></li>
+          <li><a href="#">→ Refund Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact-item">
+          <span class="icon">📍</span>
+          <span>Bliss Out Dance Studio,<br/>Khandwa, Madhya Pradesh,<br/>India — 450001</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">📞</span>
+          <a href="tel:+918964033641">+91 89640 33641</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">✉️</span>
+          <a href="mailto:blissout303@gmail.com">blissout303@gmail.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="icon">⏰</span>
+          <span>Mon–Sat: 6:30 PM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Bliss Out Dance Studio, Khandwa. All rights reserved.</span>
+      <span>Made with ❤️ for Garba lovers · Powered by <a href="#">Razorpay</a></span>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       WHATSAPP FAB
+  ============================================================ -->
+  <div class="whatsapp-fab">
+    <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+    <a href="https://wa.me/918964033641?text=Hi!%20I%20want%20to%20know%20more%20about%20the%20Garba%20Workshop%20at%20Bliss%20Out%20Dance%20Studio." target="_blank" class="whatsapp-btn" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ============================================================
+       SUCCESS MODAL
+  ============================================================ -->
+  <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose">✕</button>
+      <span class="modal-icon">🎉</span>
+      <div class="modal-title">You're In!</div>
+      <p class="modal-text">
+        Welcome to the Bliss Out Garba Workshop! Your registration is confirmed.
+      </p>
+      <div class="modal-reg-id" id="modalRegId">BLISS-XXXX-XXXX</div>
+      <p class="modal-text" style="font-size:0.87rem;">
+        📧 Your <strong>Garba Pass</strong> has been emailed to your registered email address.
+        Please check your inbox (and spam folder). Bring it on Day 1!
+      </p>
+      <br/>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="document.getElementById('successModal').classList.remove('open')">
+        <span>Awesome, Let's Dance! 💃</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+  (() => {
+    'use strict';
+
+    // ── CONFIG ──────────────────────────────────────────────────
+    // IMPORTANT: Replace with your actual Render backend URL
+    const BACKEND_URL = 'https://bliss-out-backend.vercel.app/';
+    const RAZORPAY_KEY = 'rzp_test_RvL7VYt7d6Awls'; // Replace with your actual key
+    const WORKSHOP_AMOUNT = 99900; // Amount in paise (₹999)
+
+    // ── NAVIGATION ──────────────────────────────────────────────
+    const nav       = document.getElementById('mainNav');
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks  = document.getElementById('navLinks');
+    const overlay   = document.getElementById('navOverlay');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+
+    overlay.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+
+    // ── PARTICLES ────────────────────────────────────────────────
+    const pc = document.getElementById('particleContainer');
+    const particleColors = ['#C8102E','#F5A623','#E040FB','#FFD166','#FF6B35'];
+    const particleEmojis = ['✦','◆','▲','●','★','⬟'];
+
+    function createParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size    = Math.random() * 6 + 3;
+      const left    = Math.random() * 100;
+      const delay   = Math.random() * 8;
+      const dur     = Math.random() * 12 + 8;
+      const color   = particleColors[Math.floor(Math.random() * particleColors.length)];
+      const emoji   = Math.random() > 0.6;
+
+      if (emoji) {
+        p.textContent = particleEmojis[Math.floor(Math.random() * particleEmojis.length)];
+        p.style.cssText = `left:${left}%;bottom:-20px;font-size:${size * 2}px;animation-duration:${dur}s;animation-delay:${delay}s;color:${color};opacity:0.4;`;
+      } else {
+        p.style.cssText = `left:${left}%;bottom:-20px;width:${size}px;height:${size}px;background:${color};animation-duration:${dur}s;animation-delay:${delay}s;opacity:0.35;`;
+      }
+      pc.appendChild(p);
+    }
+
+    for (let i = 0; i < 24; i++) createParticle();
+
+    // ── SCROLL REVEAL ────────────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => observer.observe(r));
+
+    // ── IMAGE SLIDER ─────────────────────────────────────────────
+    const slides    = document.querySelectorAll('.slide');
+    const dots      = document.querySelectorAll('.slider-dot');
+    const thumbs    = document.querySelectorAll('.gallery-thumb');
+    let current     = 0;
+    let autoPlay    = null;
+
+    function goToSlide(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      thumbs[current].classList.remove('active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      thumbs[current].classList.add('active');
+    }
+
+    function startAutoPlay() {
+      autoPlay = setInterval(() => goToSlide(current + 1), 4500);
+    }
+
+    function resetAutoPlay() {
+      clearInterval(autoPlay);
+      startAutoPlay();
+    }
+
+    startAutoPlay();
+
+    document.getElementById('prevSlide').addEventListener('click', () => { goToSlide(current - 1); resetAutoPlay(); });
+    document.getElementById('nextSlide').addEventListener('click', () => { goToSlide(current + 1); resetAutoPlay(); });
+
+    dots.forEach(d => d.addEventListener('click', () => { goToSlide(+d.dataset.slide); resetAutoPlay(); }));
+    thumbs.forEach(t => t.addEventListener('click', () => { goToSlide(+t.dataset.slide); resetAutoPlay(); }));
+
+    // ── FAQ ──────────────────────────────────────────────────────
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // ── FORM VALIDATION ──────────────────────────────────────────
+    function showError(id, show) {
+      document.getElementById(id).classList.toggle('show', show);
+    }
+
+    function validateForm(data) {
+      let valid = true;
+      const nameRegex  = /^[a-zA-Z\u0900-\u097F ]{2,60}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+      const phoneClean = data.phone.replace(/[\s\-\+]/g, '').replace(/^91/, '');
+
+      if (!nameRegex.test(data.name)) { showError('nameError', true); valid = false; }
+      else showError('nameError', false);
+
+      if (!emailRegex.test(data.email)) { showError('emailError', true); valid = false; }
+      else showError('emailError', false);
+
+      if (!phoneRegex.test(phoneClean)) { showError('phoneError', true); valid = false; }
+      else showError('phoneError', false);
+
+      const age = parseInt(data.age);
+      if (!data.age || isNaN(age) || age < 5 || age > 99) { showError('ageError', true); valid = false; }
+      else showError('ageError', false);
+
+      return valid;
+    }
+
+    // ── CONFETTI ─────────────────────────────────────────────────
+    function fireConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx    = canvas.getContext('2d');
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors   = ['#C8102E','#F5A623','#E040FB','#FFD166','#FF6B35','#00BCD4'];
+      const pieces   = [];
+      const total    = 160;
+
+      for (let i = 0; i < total; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          w: Math.random() * 10 + 5,
+          h: Math.random() * 14 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.2,
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 5 + 2,
+          alpha: 1,
+        });
+      }
+
+      let frame = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+          ctx.restore();
+          p.x     += p.vx;
+          p.y     += p.vy;
+          p.angle += p.spin;
+          p.vy    += 0.1;
+          if (frame > 120) p.alpha -= 0.012;
+        });
+        frame++;
+        if (frame < 240) requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      draw();
+    }
+
+    // ── SUCCESS MODAL ────────────────────────────────────────────
+    function showSuccess(regId) {
+      document.getElementById('modalRegId').textContent = regId;
+      document.getElementById('successModal').classList.add('open');
+      fireConfetti();
+    }
+
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('successModal').classList.remove('open');
+    });
+
+    // ── RAZORPAY PAYMENT FLOW ────────────────────────────────────
+    async function initiatePayment(formData) {
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      try {
+        // Step 1: Create order
+        const orderRes = await fetch(`${BACKEND_URL}/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: WORKSHOP_AMOUNT,
+            name:   formData.name,
+            email:  formData.email,
+            phone:  formData.phone,
+          }),
+        });
+
+        if (!orderRes.ok) throw new Error('Failed to create order.');
+        const { orderId, amount, currency } = await orderRes.json();
+
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+
+        // Step 2: Open Razorpay
+        const options = {
+          key:         RAZORPAY_KEY,
+          amount:      amount,
+          currency:    currency,
+          name:        'Bliss Out Dance Studio',
+          description: 'One-Month Garba Workshop Registration',
+          image:       '',
+          order_id:    orderId,
+          prefill: {
+            name:    formData.name,
+            email:   formData.email,
+            contact: formData.phone,
+          },
+          notes: {
+            age:   formData.age,
+            level: formData.level,
+            city:  formData.city,
+          },
+          theme: { color: '#C8102E' },
+          modal: {
+            ondismiss: () => {
+              submitBtn.disabled = false;
+            },
+          },
+          handler: async (response) => {
+            // Step 3: Verify payment
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            const verifyRes = await fetch(`${BACKEND_URL}/verify-payment`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id:   response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature:  response.razorpay_signature,
+                name:                formData.name,
+                email:               formData.email,
+                phone:               formData.phone,
+                age:                 formData.age,
+                level:               formData.level,
+                city:                formData.city,
+              }),
+            });
+
+            const result = await verifyRes.json();
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+
+            if (result.success) {
+              showSuccess(result.registrationId);
+              document.getElementById('registrationForm').reset();
+            } else {
+              alert('Payment verification failed. Please contact support at blissout303@gmail.com');
+            }
+          },
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', (resp) => {
+          alert(`Payment failed: ${resp.error.description}\nPlease try again.`);
+          submitBtn.disabled = false;
+        });
+        rzp.open();
+
+      } catch (err) {
+        console.error('Payment flow error:', err);
+        alert('Something went wrong. Please try again or contact support.');
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }
+    }
+
+    // ── FORM SUBMIT ──────────────────────────────────────────────
+    document.getElementById('registrationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = {
+        name:  document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim().toLowerCase(),
+        phone: document.getElementById('phone').value.trim(),
+        age:   document.getElementById('age').value.trim(),
+        level: document.getElementById('level').value,
+        city:  document.getElementById('city').value.trim(),
+      };
+
+      if (!validateForm(formData)) {
+        // Scroll to first error
+        document.querySelector('.form-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      initiatePayment(formData);
+    });
+
+    // ── SMOOTH NAV SCROLL ────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+  })();
+  </script>
+
+</body>
+</html>
