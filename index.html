@@ -827,7 +827,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
+      padding: 18px 0;
       border-bottom: 1px solid var(--border-dim);
       font-size: 0.9rem;
     }
@@ -840,7 +840,7 @@
 
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .about-float-badge { bottom: 12px; right: 12px; }
+      .about-float-badge { bottom: -20px; right: 10px; }
     }
 
     @media (max-width: 580px) {
@@ -1742,12 +1742,13 @@
     ============================================================ */
     @media (max-width: 640px) {
       section { padding: 70px 20px; }
-      .hero { padding: 100px 20px 70px; }
-      .hero-mandala { width: 300px; height: 300px; opacity: 0.04; }
+      .hero { padding: 100px 20px 160px; }
+      .hero-mandala { width: 300px; height: 300px; opacity: 0.08; right: -150px; }
       .btn-primary { font-size: 0.95rem; padding: 16px 30px; }
       .btn-secondary { font-size: 0.9rem; padding: 14px 24px; }
       .reg-form-card, .pricing-card { padding: 28px 20px; }
       .modal-box { padding: 36px 24px; }
+      .form-submit-btn { font-size: 0.95rem; padding: 14px 20px; }
     }
   </style>
 </head>
