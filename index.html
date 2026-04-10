@@ -2567,6 +2567,12 @@
       if (!data.age || isNaN(age) || age < 5 || age > 99) { showError('ageError', true); valid = false; }
       else showError('ageError', false);
 
+      const userCity = data.city.toLowerCase().trim();
+      if (userCity !== 'khandwa') {
+        alert("Sorry, this workshop is exclusively for residents of Khandwa.");
+        valid = false;
+      }
+
       return valid;
     }
 
@@ -2650,7 +2656,10 @@
           }),
         });
 
-        if (!orderRes.ok) throw new Error('Failed to create order.');
+        if (!orderRes.ok) {
+          const errorData = await orderRes.json();
+          throw new Error(errorData.error || 'Failed to create order.');
+        }
         const { orderId, amount, currency } = await orderRes.json();
 
         submitBtn.classList.remove('loading');
@@ -2724,7 +2733,7 @@
 
       } catch (err) {
         console.error('Payment flow error:', err);
-        alert('Something went wrong. Please try again or contact support.');
+        alert(err.message || 'Something went wrong. Please try again or contact support.');
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
       }
