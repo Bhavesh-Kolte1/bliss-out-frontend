@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Bliss Out Dance Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg-void:       #07060A;
+      --bg-deep:       #0F0C15;
+      --bg-card:       #1A1526;
+      --bg-card-alt:   #201830;
+
+      --crimson:       #C8102E;
+      --crimson-light: #E8234A;
+      --crimson-glow:  rgba(200,16,46,0.35);
+      --crimson-dim:   rgba(200,16,46,0.12);
+
+      --gold:          #F5A623;
+      --gold-light:    #FFD166;
+      --gold-glow:     rgba(245,166,35,0.3);
+      --gold-dim:      rgba(245,166,35,0.08);
+
+      --magenta:       #E040FB;
+      --teal:          #00BCD4;
+
+      --text-primary:  #F9F4EE;
+      --text-muted:    #A89BB0;
+      --text-faint:    #6A5F75;
+
+      --border-dim:    rgba(245,166,35,0.12);
+      --border-mid:    rgba(245,166,35,0.28);
+      --border-gold:   rgba(245,166,35,0.5);
+
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  24px;
+      --radius-xl:  48px;
+
+      --font-display: 'Cinzel Decorative', serif;
+      --font-body:    'Outfit', sans-serif;
+
+      --transition: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+      --backend: https://bliss-out-backend.vercel.app;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-void);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    ::selection { background: var(--crimson); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 3px; }
+
+    /* ============================================================
+       NOISE OVERLAY
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.45;
+    }
+
+    /* ============================================================
+       AMBIENT BACKGROUND
+    ============================================================ */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 0%, rgba(200,16,46,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 90%, rgba(245,166,35,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 10% 60%, rgba(224,64,251,0.06) 0%, transparent 50%),
+        var(--bg-void);
+      pointer-events: none;
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(200,16,46,0.18), transparent 70%);
+      top: -120px; left: -120px;
+      animation: orbFloat 9s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(245,166,35,0.15), transparent 70%);
+      bottom: -80px; right: -80px;
+      animation: orbFloat 11s ease-in-out infinite;
+      animation-delay: -5s;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(25px,-35px) scale(1.04); }
+      66%      { transform: translate(-18px,18px) scale(0.96); }
+    }
+
+    /* Mandala watermark */
+    .mandala-bg {
+      position: fixed;
+      right: -8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 580px; height: 580px;
+      opacity: 0.04;
+      animation: rotateSlow 50s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes rotateSlow {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    /* Dandiya pattern tile */
+    .pattern-tile {
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23F5A623' stroke-width='1.5'%3E%3Ccircle cx='40' cy='40' r='35'/%3E%3Ccircle cx='40' cy='40' r='25'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cline x1='40' y1='5' x2='40' y2='75'/%3E%3Cline x1='5' y1='40' x2='75' y2='40'/%3E%3Cline x1='15' y1='15' x2='65' y2='65'/%3E%3Cline x1='65' y1='15' x2='15' y2='65'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       LOGIN OVERLAY
+    ============================================================ */
+    #loginOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg-void);
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loginOverlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Login overlay has its own ambient bg */
+    #loginOverlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 10%, rgba(200,16,46,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(245,166,35,0.14) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .login-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius-lg);
+      padding: 52px 44px 44px;
+      box-shadow:
+        0 0 0 1px rgba(245,166,35,0.06),
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(200,16,46,0.08);
+      animation: cardReveal 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(28px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .login-emblem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .login-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--crimson), #8B0011);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 30px var(--crimson-glow);
+      margin-bottom: 6px;
+    }
+
+    .login-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .login-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 13px 16px;
+      outline: none;
+      transition: var(--transition);
+      letter-spacing: 0.06em;
+    }
+    .form-input::placeholder { color: var(--text-faint); letter-spacing: 0.02em; }
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
+    }
+
+    .login-error {
+      color: var(--crimson-light);
+      font-size: 0.82rem;
+      margin-top: 6px;
+      min-height: 18px;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.03em;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--crimson) 0%, #9A000F 100%);
+      color: #fff;
+      box-shadow: 0 4px 24px var(--crimson-glow);
+    }
+    .btn-primary:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px var(--crimson-glow);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #c47c00 100%);
+      color: #07060A;
+      box-shadow: 0 4px 20px var(--gold-glow);
+    }
+    .btn-gold:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--gold-glow);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-dim);
+    }
+    .btn-ghost:not(:disabled):hover {
+      border-color: var(--border-mid);
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn-danger {
+      background: var(--crimson-dim);
+      color: var(--crimson-light);
+      border: 1px solid rgba(200,16,46,0.3);
+    }
+    .btn-danger:not(:disabled):hover {
+      background: rgba(200,16,46,0.2);
+      border-color: var(--crimson);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-full { width: 100%; }
+
+    /* Spinner inside button */
+    .btn .spinner-sm {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    .btn-gold .spinner-sm {
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================================
+       TOP NAV (Dashboard)
+    ============================================================ */
+    #dashboard { display: none; min-height: 100vh; position: relative; z-index: 1; }
+
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      background: rgba(15,12,21,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .topnav-logo {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topnav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--crimson), #8B0011);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .topnav-badge {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-dim);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-left: 6px;
+    }
+
+    @media (max-width: 480px) {
+      .topnav { padding: 0 18px; }
+      .topnav-badge { display: none; }
+    }
+
+    /* ============================================================
+       MAIN CONTENT
+    ============================================================ */
+    .main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 28px 80px;
+    }
+
+    /* ============================================================
+       PAGE HEADER
+    ============================================================ */
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-header-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--crimson-light);
+      margin-bottom: 8px;
+    }
+
+    .page-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .page-header-sub {
+      font-size: 0.9rem;
+      color: var(--text-faint);
+    }
+
+    /* ============================================================
+       STAT CARDS ROW
+    ============================================================ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--crimson), var(--gold));
+      opacity: 0.5;
+    }
+    .stat-card:hover { border-color: var(--border-mid); transform: translateY(-2px); }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-value.crimson { color: var(--crimson-light); }
+
+    /* ============================================================
+       SECTION WRAPPER
+    ============================================================ */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .section-title-group { display: flex; flex-direction: column; gap: 3px; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.03em;
+    }
+
+    .section-meta {
+      font-size: 0.78rem;
+      color: var(--text-faint);
+    }
+
+    .section-actions { display: flex; align-items: center; gap: 10px; }
+
+    /* ============================================================
+       FEEDBACK TOAST
+    ============================================================ */
+    .toast-area {
+      padding: 0 28px;
+    }
+
+    .toast {
+      display: none;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      margin: 16px 0 0;
+      font-size: 0.88rem;
+      font-weight: 500;
+      animation: toastIn 0.3s ease;
+    }
+    .toast.show { display: flex; }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .toast-success {
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.25);
+      color: var(--gold-light);
+    }
+
+    .toast-error {
+      background: rgba(200,16,46,0.1);
+      border: 1px solid rgba(200,16,46,0.25);
+      color: #F87C8A;
+    }
+
+    .toast-icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
+
+    /* ============================================================
+       TABLE
+    ============================================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-loading, .table-empty {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 64px 28px;
+      color: var(--text-faint);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .table-loading.show, .table-empty.show { display: flex; }
+
+    .spinner-lg {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(245,166,35,0.15);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .empty-icon { font-size: 2.5rem; opacity: 0.5; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    th {
+      padding: 13px 20px;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--text-faint);
+      background: var(--bg-card-alt, #201830);
+      border-bottom: 1px solid var(--border-dim);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 20px;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(245,166,35,0.06);
+      color: var(--text-muted);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tbody tr {
+      transition: background 0.18s ease;
+    }
+    tbody tr:hover td {
+      background: rgba(245,166,35,0.04);
+    }
+
+    .td-name {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .td-email {
+      color: var(--text-muted);
+      font-size: 0.83rem;
+    }
+
+    .td-regid {
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: var(--gold);
+      background: rgba(245,166,35,0.07);
+      border: 1px solid rgba(245,166,35,0.14);
+      border-radius: 4px;
+      padding: 3px 8px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .td-date {
+      white-space: nowrap;
+      font-size: 0.82rem;
+    }
+
+    .row-num {
+      color: var(--text-faint);
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       DANGER ZONE
+    ============================================================ */
+    .danger-section {
+      background: var(--bg-card);
+      border: 1px solid rgba(200,16,46,0.2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .danger-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(200,16,46,0.15);
+      background: rgba(200,16,46,0.05);
+    }
+
+    .danger-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--crimson-light);
+      background: rgba(200,16,46,0.15);
+      border: 1px solid rgba(200,16,46,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+
+    .danger-title {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      letter-spacing: 0.03em;
+    }
+
+    .danger-body {
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .danger-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .danger-info-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .danger-info-desc {
+      font-size: 0.83rem;
+      color: var(--text-faint);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       CONFIRMATION MODAL
+    ============================================================ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(7,6,10,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-card);
+      border: 1px solid rgba(200,16,46,0.3);
+      border-radius: var(--radius-lg);
+      padding: 36px 36px 32px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 40px rgba(200,16,46,0.1);
+      transform: scale(0.94) translateY(12px);
+      transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1);
+    }
+    .modal-backdrop.open .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-icon {
+      width: 52px; height: 52px;
+      background: rgba(200,16,46,0.15);
+      border: 1px solid rgba(200,16,46,0.3);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+
+    .modal-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .modal-count {
+      display: inline;
+      color: var(--crimson-light);
+      font-weight: 700;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 640px) {
+      .main { padding: 28px 16px 60px; }
+      .section-header { padding: 18px 20px; flex-direction: column; align-items: flex-start; }
+      .section-actions { width: 100%; }
+      .section-actions .btn { flex: 1; }
+      th, td { padding: 12px 14px; }
+      .danger-body { padding: 20px; }
+      .modal { padding: 28px 24px 24px; }
+      .modal-actions { flex-direction: column-reverse; }
+      .modal-actions .btn { width: 100%; }
+      .toast-area { padding: 0 20px; }
+    }
+
+    @media (max-width: 400px) {
+      .login-card { padding: 36px 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient layers -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="pattern-tile" aria-hidden="true"></div>
+
+  <!-- Mandala SVG watermark -->
+  <svg class="mandala-bg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#F5A623" stroke-width="1.2" transform="translate(200,200)">
+      <circle r="180"/><circle r="150"/><circle r="120"/><circle r="90"/>
+      <circle r="60"/><circle r="30"/>
+      <line x1="0" y1="-180" x2="0" y2="180"/>
+      <line x1="-180" y1="0" x2="180" y2="0"/>
+      <line x1="-127" y1="-127" x2="127" y2="127"/>
+      <line x1="127" y1="-127" x2="-127" y2="127"/>
+      <line x1="-68" y1="-168" x2="68" y2="168"/>
+      <line x1="168" y1="-68" x2="-168" y2="68"/>
+      <line x1="68" y1="-168" x2="-68" y2="168"/>
+      <line x1="-168" y1="-68" x2="168" y2="68"/>
+      <polygon points="0,-180 155.9,90 -155.9,90"/>
+      <polygon points="0,180 155.9,-90 -155.9,-90"/>
+      <polygon points="0,-120 103.9,60 -103.9,60"/>
+      <polygon points="0,120 103.9,-60 -103.9,-60"/>
+    </g>
+  </svg>
+
+  <!-- ================================================================
+       LOGIN OVERLAY
+  ================================================================ -->
+  <div id="loginOverlay" role="dialog" aria-modal="true" aria-label="Admin Login">
+    <div class="login-card">
+      <div class="login-emblem">
+        <div class="login-icon">🪔</div>
+        <div class="login-title">Bliss Out</div>
+        <div class="login-subtitle">Studio Admin Portal</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="passwordInput">Admin Password</label>
+        <input
+          class="form-input"
+          type="password"
+          id="passwordInput"
+          placeholder="Enter password…"
+          autocomplete="current-password"
+        />
+        <div class="login-error" id="loginError" role="alert"></div>
+      </div>
+
+      <button class="btn btn-primary btn-full" id="loginBtn" onclick="handleLogin()">
+        <span id="loginBtnText">Access Dashboard</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       DASHBOARD
+  ================================================================ -->
+  <div id="dashboard">
+
+    <!-- TOP NAV -->
+    <nav class="topnav">
+      <div class="topnav-logo">
+        <div class="topnav-logo-icon">🪔</div>
+        Bliss Out
+        <span class="topnav-badge">Admin</span>
+      </div>
+      <button class="btn btn-ghost" onclick="handleLogout()" style="font-size:0.82rem; padding:8px 16px;">
+        ⎋ &nbsp;Logout
+      </button>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <div class="page-header-eyebrow">🎵 &nbsp;Active Batch Dashboard</div>
+        <div class="page-header-title">Student Registrations</div>
+        <div class="page-header-sub" id="lastRefreshed">Loading data…</div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Active Students</div>
+          <div class="stat-value" id="statCount">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Batch Status</div>
+          <div class="stat-value" style="font-size:1.1rem; color: var(--gold); padding-top:6px;">
+            <span style="display:inline-block; width:8px; height:8px; background:var(--gold); border-radius:50%; margin-right:6px; animation: pulse 2s infinite;"></span>
+            Active
+          </div>
+        </div>
+      </div>
+
+      <!-- Student list section -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title-group">
+            <div class="section-title">Current Batch — All Students</div>
+            <div class="section-meta" id="tableSubline">Fetching registrations…</div>
+          </div>
+          <div class="section-actions">
+            <button class="btn btn-gold" id="refreshBtn" onclick="loadStudents()">
+              <span id="refreshBtnInner">⟳ &nbsp;Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Toast feedback (students) -->
+        <div class="toast-area">
+          <div class="toast toast-success" id="studentsToastSuccess" role="status">
+            <span class="toast-icon">✦</span>
+            <span id="studentsToastSuccessText"></span>
+          </div>
+          <div class="toast toast-error" id="studentsToastError" role="alert">
+            <span class="toast-icon">✕</span>
+            <span id="studentsToastErrorText"></span>
+          </div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="table-loading" id="tableLoading">
+          <div class="spinner-lg"></div>
+          <span>Fetching student data…</span>
+        </div>
+
+        <!-- Empty state -->
+        <div class="table-empty" id="tableEmpty">
+          <div class="empty-icon">🎭</div>
+          <strong>No registrations yet</strong>
+          <span>The current batch has no active students.</span>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper" id="tableWrapper" style="display:none;">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date Registered</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Registration ID</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="danger-section">
+        <div class="danger-header">
+          <div class="danger-badge">⚠ Danger Zone</div>
+          <div class="danger-title">Batch Management</div>
+        </div>
+
+        <!-- Toast feedback (batch) -->
+        <div class="toast-area" style="padding-top:16px; padding-bottom:0;">
+          <div class="toast toast-success" id="batchToastSuccess" role="status">
+            <span class="toast-icon">✦</span>
+            <span id="batchToastSuccessText"></span>
+          </div>
+          <div class="toast toast-error" id="batchToastError" role="alert">
+            <span class="toast-icon">✕</span>
+            <span id="batchToastErrorText"></span>
+          </div>
+        </div>
+
+        <div class="danger-body">
+          <div class="danger-info">
+            <div class="danger-info-title">Reset Current Batch</div>
+            <div class="danger-info-desc">
+              Archives all active students and opens fresh seats for the next batch.
+              This action cannot be undone. Students already registered will be preserved in the archive.
+            </div>
+          </div>
+          <button class="btn btn-danger" id="resetBtn" onclick="openResetModal()">
+            ⊗ &nbsp;Reset Current Batch
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================================================================
+       CONFIRMATION MODAL
+  ================================================================ -->
+  <div class="modal-backdrop" id="resetModal" role="dialog" aria-modal="true" aria-label="Confirm batch reset">
+    <div class="modal">
+      <div class="modal-icon">⚠️</div>
+      <div class="modal-title">Confirm Batch Reset</div>
+      <div class="modal-body">
+        Are you sure? This will archive
+        <span class="modal-count" id="modalStudentCount">all current</span>
+        students and open new seats for the next batch.
+        <br><br>
+        <strong style="color: var(--crimson-light);">This action cannot be undone.</strong>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeResetModal()">Cancel</button>
+        <button class="btn btn-primary" id="confirmResetBtn" onclick="handleReset()">
+          <span id="confirmResetBtnText">Yes, Reset Batch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       SCRIPT
+  ================================================================ -->
+  <script>
+    const BACKEND = 'https://bliss-out-backend.vercel.app';
+    const SESSION_KEY = 'blissout_admin_pw';
+
+    // ── Utilities ────────────────────────────────────────────────
+
+    function getPassword() {
+      return sessionStorage.getItem(SESSION_KEY) || '';
+    }
+
+    function showToast(successId, errorId, successTextId, errorTextId, type, message) {
+      const sEl = document.getElementById(successId);
+      const eEl = document.getElementById(errorId);
+      sEl.classList.remove('show');
+      eEl.classList.remove('show');
+      if (type === 'success') {
+        document.getElementById(successTextId).textContent = message;
+        sEl.classList.add('show');
+        setTimeout(() => sEl.classList.remove('show'), 5000);
+      } else {
+        document.getElementById(errorTextId).textContent = message;
+        eEl.classList.add('show');
+        setTimeout(() => eEl.classList.remove('show'), 7000);
+      }
+    }
+
+    function studentsToast(type, message) {
+      showToast('studentsToastSuccess','studentsToastError','studentsToastSuccessText','studentsToastErrorText', type, message);
+    }
+
+    function batchToast(type, message) {
+      showToast('batchToastSuccess','batchToastError','batchToastSuccessText','batchToastErrorText', type, message);
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+      } catch { return '—'; }
+    }
+
+    // ── LOGIN ────────────────────────────────────────────────────
+
+    async function handleLogin() {
+      const pw   = document.getElementById('passwordInput').value.trim();
+      const errEl = document.getElementById('loginError');
+      const btn  = document.getElementById('loginBtn');
+      const txt  = document.getElementById('loginBtnText');
+
+      errEl.textContent = '';
+
+      if (!pw) {
+        errEl.textContent = 'Please enter the admin password.';
+        document.getElementById('passwordInput').focus();
+        return;
+      }
+
+      // Verify password by making a test API call
+      btn.disabled = true;
+      txt.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;"><span class="spinner-sm" style="border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;width:16px;height:16px;border-radius:50%;animation:spin 0.7s linear infinite;"></span> Verifying…</span>';
+
+      try {
+        const res = await fetch(`${BACKEND}/admin/students`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw }),
+        });
+
+        if (res.status === 401) {
+          errEl.textContent = 'Incorrect password. Please try again.';
+          btn.disabled = false;
+          txt.textContent = 'Access Dashboard';
+          document.getElementById('passwordInput').focus();
+          return;
+        }
+
+        if (!res.ok) {
+          errEl.textContent = 'Server error. Please try again later.';
+          btn.disabled = false;
+          txt.textContent = 'Access Dashboard';
+          return;
+        }
+
+        // Password accepted
+        sessionStorage.setItem(SESSION_KEY, pw);
+        const data = await res.json();
+
+        // Transition: hide overlay, show dashboard
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('dashboard').style.display = 'block';
+
+        // Populate with data we just fetched
+        renderStudents(data);
+
+      } catch (err) {
+        errEl.textContent = 'Network error. Check your connection.';
+        btn.disabled = false;
+        txt.textContent = 'Access Dashboard';
+      }
+    }
+
+    // Allow Enter key to submit login
+    document.getElementById('passwordInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleLogin();
+    });
+
+    // ── AUTO-LOGIN (if session exists) ──────────────────────────
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = getPassword();
+      if (saved) {
+        // Show dashboard immediately then load data
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('dashboard').style.display = 'block';
+        loadStudents();
+      }
+    });
+
+    // ── LOGOUT ───────────────────────────────────────────────────
+
+    function handleLogout() {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+
+    // ── LOAD STUDENTS ────────────────────────────────────────────
+
+    let currentStudentCount = 0;
+
+    async function loadStudents() {
+      const pw = getPassword();
+
+      // UI: loading state
+      document.getElementById('tableLoading').classList.add('show');
+      document.getElementById('tableWrapper').style.display = 'none';
+      document.getElementById('tableEmpty').classList.remove('show');
+      document.getElementById('tableSubline').textContent = 'Fetching registrations…';
+      document.getElementById('statCount').textContent = '—';
+
+      const refreshBtn = document.getElementById('refreshBtn');
+      const refreshInner = document.getElementById('refreshBtnInner');
+      refreshBtn.disabled = true;
+      refreshInner.innerHTML = '<span class="spinner-sm" style="border:2px solid rgba(0,0,0,0.2);border-top-color:#000;width:14px;height:14px;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;"></span>';
+
+      try {
+        const res = await fetch(`${BACKEND}/admin/students`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw }),
+        });
+
+        if (res.status === 401) {
+          // Session expired
+          sessionStorage.removeItem(SESSION_KEY);
+          location.reload();
+          return;
+        }
+
+        if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+
+        const data = await res.json();
+        renderStudents(data);
+        studentsToast('success', `✦ List refreshed — ${data.count} student${data.count !== 1 ? 's' : ''} loaded.`);
+
+      } catch (err) {
+        document.getElementById('tableLoading').classList.remove('show');
+        document.getElementById('tableEmpty').classList.add('show');
+        document.getElementById('tableSubline').textContent = 'Failed to load. Try refreshing.';
+        studentsToast('error', `Could not fetch students: ${err.message}`);
+      } finally {
+        refreshBtn.disabled = false;
+        refreshInner.innerHTML = '⟳ &nbsp;Refresh';
+      }
+    }
+
+    function renderStudents(data) {
+      document.getElementById('tableLoading').classList.remove('show');
+
+      const students = data.students || [];
+      currentStudentCount = students.length;
+
+      // Stats
+      document.getElementById('statCount').textContent = currentStudentCount;
+
+      // Timestamp
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('lastRefreshed').textContent = `Last refreshed at ${timeStr}`;
+      document.getElementById('tableSubline').textContent =
+        `${currentStudentCount} active registration${currentStudentCount !== 1 ? 's' : ''} found`;
+
+      if (currentStudentCount === 0) {
+        document.getElementById('tableEmpty').classList.add('show');
+        document.getElementById('tableWrapper').style.display = 'none';
+        return;
+      }
+
+      // Build table rows
+      const tbody = document.getElementById('studentTableBody');
+      tbody.innerHTML = '';
+
+      students.forEach((s, i) => {
+        const tr = document.createElement('tr');
+        const date = formatDate(s.paidAt || s.createdAt);
+        const name  = escapeHtml(s.name  || '—');
+        const email = escapeHtml(s.email || '—');
+        const phone = escapeHtml(s.phone || '—');
+        const regId = escapeHtml(s.registrationId || '—');
+
+        tr.innerHTML = `
+          <td class="row-num">${i + 1}</td>
+          <td class="td-date">${date}</td>
+          <td class="td-name">${name}</td>
+          <td class="td-email">${email}</td>
+          <td>${phone}</td>
+          <td><span class="td-regid">${regId}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('tableWrapper').style.display = 'block';
+      document.getElementById('tableEmpty').classList.remove('show');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── RESET MODAL ──────────────────────────────────────────────
+
+    function openResetModal() {
+      const countEl = document.getElementById('modalStudentCount');
+      if (currentStudentCount > 0) {
+        countEl.textContent = `all ${currentStudentCount}`;
+      } else {
+        countEl.textContent = 'all current';
+      }
+      document.getElementById('resetModal').classList.add('open');
+    }
+
+    function closeResetModal() {
+      document.getElementById('resetModal').classList.remove('open');
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('resetModal').addEventListener('click', function(e) {
+      if (e.target === this) closeResetModal();
+    });
+
+    // Close modal on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeResetModal();
+    });
+
+    // ── HANDLE RESET ─────────────────────────────────────────────
+
+    async function handleReset() {
+      const pw  = getPassword();
+      const btn = document.getElementById('confirmResetBtn');
+      const txt = document.getElementById('confirmResetBtnText');
+
+      btn.disabled = true;
+      txt.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;"></span> Resetting…</span>';
+
+      try {
+        const res = await fetch(`${BACKEND}/admin/reset-batch`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw }),
+        });
+
+        if (res.status === 401) {
+          sessionStorage.removeItem(SESSION_KEY);
+          location.reload();
+          return;
+        }
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || `Server error ${res.status}`);
+        }
+
+        // Success
+        closeResetModal();
+        batchToast('success', `✦ Batch reset successfully! All students have been archived and new seats are open.`);
+        // Reload student list to show empty state
+        setTimeout(() => loadStudents(), 800);
+
+      } catch (err) {
+        closeResetModal();
+        batchToast('error', `Reset failed: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        txt.textContent = 'Yes, Reset Batch';
+      }
+    }
+
+    // ── PULSE KEYFRAME (inline for stat badge) ───────────────────
+    // (declared in CSS above via @keyframes pulse)
+  </script>
+</body>
+</html>
