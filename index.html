@@ -1759,6 +1759,21 @@
         width: 6px; 
         height: 6px;
       }
+    /* ============================================================
+       HIDDEN ADMIN ACCESS
+    ============================================================ */
+      .admin-gate {
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.1; /* Makes it almost invisible */
+      cursor: default;
+      margin-left: 2px;
+      transition: opacity 0.3s ease;
+    }
+
+    .admin-gate:hover {
+      opacity: 0.5; /* Slightly visible when you hover exactly over the dot */
+    }
     }
   </style>
 </head>
@@ -2384,7 +2399,7 @@
     </div>
 
     <div class="footer-bottom">
-      <span>© 2025 Bliss Out Dance Studio, Khandwa. All rights reserved.</span>
+      <span>© 2025 Bliss Out Dance Studio, Khandwa. All rights reserved.<a href="admin.html" class="admin-gate">.</a></span>
       <span>Made with ❤️ for Garba lovers · Powered by <a href="#">Razorpay</a></span>
     </div>
   </footer>
