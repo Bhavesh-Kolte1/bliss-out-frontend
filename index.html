@@ -2891,7 +2891,62 @@ function showSuccess(regId, phone) {
 
             if (result.success) {
               showSuccess(result.registrationId, formData.phone);
-              // ── WHATSAPP PASS DELIVERY ────────────────────────────────────
+
+              document.getElementById('registrationForm').reset();
+            } else {
+              alert('Payment verification failed. Please contact support at blissout303@gmail.com');
+            }
+          },
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', (resp) => {
+          alert(`Payment failed: ${resp.error.description}\nPlease try again.`);
+          submitBtn.disabled = false;
+        });
+        rzp.open();
+
+      } catch (err) {
+        console.error('Payment flow error:', err);
+        alert(err.message || 'Something went wrong. Please try again or contact support.');
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }
+    }
+
+    // ── FORM SUBMIT ──────────────────────────────────────────────
+    document.getElementById('registrationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = {
+        name:  document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim().toLowerCase(),
+        phone: document.getElementById('phone').value.trim(),
+        age:   document.getElementById('age').value.trim(),
+        level: document.getElementById('level').value,
+        city:  document.getElementById('city').value.trim(),
+      };
+
+      if (!validateForm(formData)) {
+        // Scroll to first error
+        document.querySelector('.form-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      initiatePayment(formData);
+    });
+
+    // ── SMOOTH NAV SCROLL ────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+                  // ── WHATSAPP PASS DELIVERY ────────────────────────────────────
 /**
  * Calls POST /api/send-whatsapp-pass with the registrationId and
  * normalised phone stored on the button's dataset by showSuccess().
@@ -2902,7 +2957,7 @@ function showSuccess(regId, phone) {
  *   loading → error    : re-enable btn, flash crimson, show error msg
  *                        so they can tap "Try Again" without reloading
  */
-async function sendWhatsAppPass() {
+window.sendWhatsAppPass = async function() {
   const btn     = document.getElementById('waBtn');
   const errEl   = document.getElementById('waErrorMsg');
   const textEl  = btn.querySelector('.wa-btn-text');
@@ -2970,60 +3025,6 @@ async function sendWhatsAppPass() {
     }, 5000);
   }
 }
-              document.getElementById('registrationForm').reset();
-            } else {
-              alert('Payment verification failed. Please contact support at blissout303@gmail.com');
-            }
-          },
-        };
-
-        const rzp = new Razorpay(options);
-        rzp.on('payment.failed', (resp) => {
-          alert(`Payment failed: ${resp.error.description}\nPlease try again.`);
-          submitBtn.disabled = false;
-        });
-        rzp.open();
-
-      } catch (err) {
-        console.error('Payment flow error:', err);
-        alert(err.message || 'Something went wrong. Please try again or contact support.');
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-      }
-    }
-
-    // ── FORM SUBMIT ──────────────────────────────────────────────
-    document.getElementById('registrationForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const formData = {
-        name:  document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim().toLowerCase(),
-        phone: document.getElementById('phone').value.trim(),
-        age:   document.getElementById('age').value.trim(),
-        level: document.getElementById('level').value,
-        city:  document.getElementById('city').value.trim(),
-      };
-
-      if (!validateForm(formData)) {
-        // Scroll to first error
-        document.querySelector('.form-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      initiatePayment(formData);
-    });
-
-    // ── SMOOTH NAV SCROLL ────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
 
   })();
   </script>
