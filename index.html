@@ -2772,15 +2772,43 @@
     }
 
     // ── SUCCESS MODAL ────────────────────────────────────────────
-    function showSuccess(regId) {
-      document.getElementById('modalRegId').textContent = regId;
-      document.getElementById('successModal').classList.add('open');
-      fireConfetti();
-    }
 
-    document.getElementById('modalClose').addEventListener('click', () => {
-      document.getElementById('successModal').classList.remove('open');
-    });
+/**
+ * Opens the success modal and stores the registrationId + phone
+ * as data attributes on the WhatsApp button so sendWhatsAppPass()
+ * can read them without needing a closure or a module-level var.
+ * Also resets the WA button to its default idle state every time
+ * the modal opens — important if the page is ever reused within
+ * the same session.
+ *
+ * @param {string} regId - e.g. "BLISS-20251001-A3B2"
+ * @param {string} phone - Raw phone from the form (normalised below)
+ */
+function showSuccess(regId, phone) {
+  // Populate the registration ID chip
+  document.getElementById('modalRegId').textContent = regId;
+
+  // Normalise phone: strip spaces, dashes, parentheses, leading '+'
+  // so it's safe to pass straight to the API as digits only.
+  const cleanPhone = String(phone).replace(/[\s\-\+\(\)]/g, '');
+
+  // Store both values on the button element — clean, DOM-local state
+  const btn = document.getElementById('waBtn');
+  btn.dataset.regId = regId;
+  btn.dataset.phone = cleanPhone;
+
+  // Reset WA button to idle state (in case modal was used before)
+  btn.disabled = false;
+  btn.classList.remove('wa-loading', 'wa-sent', 'wa-error');
+  btn.querySelector('.wa-btn-text').textContent = 'Send my Pass on WhatsApp';
+  const errEl = document.getElementById('waErrorMsg');
+  errEl.textContent = '';
+  errEl.classList.remove('show');
+
+  // Open modal and fire confetti
+  document.getElementById('successModal').classList.add('open');
+  fireConfetti();
+}
 
     // ── RAZORPAY PAYMENT FLOW ────────────────────────────────────
     async function initiatePayment(formData) {
@@ -2862,7 +2890,86 @@
             submitBtn.disabled = false;
 
             if (result.success) {
-              showSuccess(result.registrationId);
+              showSuccess(result.registrationId, formData.phone);
+              // ── WHATSAPP PASS DELIVERY ────────────────────────────────────
+/**
+ * Calls POST /api/send-whatsapp-pass with the registrationId and
+ * normalised phone stored on the button's dataset by showSuccess().
+ *
+ * UI state machine:
+ *   idle    → loading  : disable btn, show spinner, change label
+ *   loading → sent     : lock btn permanently, show "✅ Sent!" label
+ *   loading → error    : re-enable btn, flash crimson, show error msg
+ *                        so they can tap "Try Again" without reloading
+ */
+async function sendWhatsAppPass() {
+  const btn     = document.getElementById('waBtn');
+  const errEl   = document.getElementById('waErrorMsg');
+  const textEl  = btn.querySelector('.wa-btn-text');
+
+  const regId   = btn.dataset.regId;
+  const phone   = btn.dataset.phone;
+
+  // Guard: data should always be set by showSuccess(), but just in case.
+  if (!regId || !phone) {
+    errEl.textContent = 'Registration details not found. Please refresh the page.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  // ── Loading state ──────────────────────────────────────────
+  btn.disabled = true;
+  btn.classList.remove('wa-sent', 'wa-error');
+  btn.classList.add('wa-loading');
+  textEl.textContent = 'Sending…';
+  errEl.textContent  = '';
+  errEl.classList.remove('show');
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/send-whatsapp-pass`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ registrationId: regId, phone }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      // Surface the backend's message if available, otherwise a generic fallback.
+      throw new Error(data.error || `Server error (${res.status}). Please try again.`);
+    }
+
+    // ── Sent state — lock the button permanently ───────────
+    btn.classList.remove('wa-loading');
+    btn.classList.add('wa-sent');
+    textEl.textContent = '✅ Sent! Check your WhatsApp';
+    // Button stays disabled — prevents duplicate sends.
+
+  } catch (err) {
+    console.error('WhatsApp pass delivery failed:', err);
+
+    // ── Error state — re-enable so they can retry ──────────
+    btn.classList.remove('wa-loading');
+    btn.classList.add('wa-error');
+    btn.disabled = false;
+    textEl.textContent = '⟳ Try Again';
+
+    // Show the message directly below the button in crimson text.
+    errEl.textContent = err.message || 'Could not send. Please try again.';
+    errEl.classList.add('show');
+
+    // Auto-reset the button back to idle after 5 s so it looks clean
+    // if the user pauses before retrying.
+    setTimeout(() => {
+      if (!btn.classList.contains('wa-sent')) {
+        btn.classList.remove('wa-error');
+        btn.dataset.regId = regId; // re-affirm data hasn't drifted
+        btn.dataset.phone  = phone;
+        textEl.textContent = 'Send my Pass on WhatsApp';
+      }
+    }, 5000);
+  }
+}
               document.getElementById('registrationForm').reset();
             } else {
               alert('Payment verification failed. Please contact support at blissout303@gmail.com');
