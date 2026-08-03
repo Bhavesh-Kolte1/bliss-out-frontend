@@ -236,19 +236,74 @@
 
       .nav-hamburger {
         display: none;
-        flex-direction: column;
-        gap: 5px;
+        width: 52px;
+        height: 52px;
+        border: 1px solid rgba(245, 166, 35, 0.25);
+        border-radius: 50%;
+        background: rgba(20, 18, 28, 0.35);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+
         cursor: pointer;
-        padding: 4px;
+        position: relative;
+
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.35s ease;
+
+        box-shadow:
+          0 0 20px rgba(245, 166, 35, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-hamburger:hover {
+        transform: translateY(-2px) scale(1.05);
+        border-color: var(--gold);
+        box-shadow:
+          0 0 30px rgba(245, 166, 35, 0.28),
+          0 0 12px rgba(200, 16, 46, 0.18);
       }
 
       .nav-hamburger span {
-        display: block;
-        width: 26px;
-        height: 2px;
-        background: var(--gold);
-        border-radius: 2px;
-        transition: var(--transition);
+        position: absolute;
+        width: 22px;
+        height: 2.5px;
+        border-radius: 20px;
+        background: linear-gradient(90deg, var(--gold), #ffd166);
+        transition: 0.35s ease;
+      }
+
+      .nav-hamburger span:nth-child(1) {
+        transform: translateY(-7px);
+      }
+
+      .nav-hamburger span:nth-child(2) {
+        transform: translateY(0);
+      }
+
+      .nav-hamburger span:nth-child(3) {
+        transform: translateY(7px);
+      }
+
+      .nav-hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+
+      .nav-hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      .nav-hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+
+      .nav-hamburger.active {
+        border-color: var(--crimson);
+        box-shadow:
+          0 0 25px rgba(200, 16, 46, 0.35),
+          0 0 12px rgba(245, 166, 35, 0.25);
       }
 
       /* Mobile Nav */
@@ -261,6 +316,7 @@
         }
         .nav-hamburger {
           display: flex;
+          flex-direction: column;
         }
         .nav-links {
           position: fixed;
@@ -2003,51 +2059,51 @@
        WHATSAPP FAB
     ============================================================ */
       .social-fab {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    z-index: 9999;
-}
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        z-index: 9999;
+      }
 
-.fab-btn {
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,.25);
-    transition: .3s;
-}
+      .fab-btn {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        transition: 0.3s;
+      }
 
-.fab-btn:hover {
-    transform: translateY(-4px) scale(1.08);
-}
+      .fab-btn:hover {
+        transform: translateY(-4px) scale(1.08);
+      }
 
-.whatsapp-fab {
-    background: #25D366;
-}
+      .whatsapp-fab {
+        background: #25d366;
+      }
 
-.instagram-fab {
-    background: linear-gradient(
-        45deg,
-        #f09433,
-        #e6683c,
-        #dc2743,
-        #cc2366,
-        #bc1888
-    );
-}
+      .instagram-fab {
+        background: linear-gradient(
+          45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
 
-.fab-btn svg {
-    width: 32px;
-    height: 32px;
-}
+      .fab-btn svg {
+        width: 32px;
+        height: 32px;
+      }
 
       /* ============================================================
        ANIMATIONS
@@ -2149,21 +2205,21 @@
           height: 36px;
         }
 
-        .social-fab{
-        right:16px;
-        bottom:16px;
-        gap:10px;
-    }
+        .social-fab {
+          right: 16px;
+          bottom: 16px;
+          gap: 10px;
+        }
 
-    .fab-btn{
-        width:52px;
-        height:52px;
-    }
+        .fab-btn {
+          width: 52px;
+          height: 52px;
+        }
 
-    .fab-btn svg{
-        width:26px;
-        height:26px;
-    }
+        .fab-btn svg {
+          width: 26px;
+          height: 26px;
+        }
 
         /* ============================================================
        HIDDEN ADMIN ACCESS
@@ -2439,7 +2495,6 @@
             <span class="icon">⌛︎</span>
             <span><strong>40 Days</strong> Intensive</span>
           </div>
-          
         </div>
 
         <div class="hero-cta-group">
@@ -2454,7 +2509,6 @@
             <span>Register Now</span>
             <span class="arrow">→</span>
           </button>
-          
         </div>
       </div>
 
@@ -2510,10 +2564,14 @@
               <span class="about-card-emoji">🪘</span>
               <div class="about-card-title">Bliss Out Dance Studio</div>
               <p class="about-card-text">
-                Bliss Out Dance Studio is more than a place to learn dance- it's a space where passion, creativity, and happiness come together.
-                We believe every movement tells a story, every beat inspires confidence, and every dancer deserves to feel free.
-                Our mission is to create a welcoming community where people of all ages can learn, grow, express themselves, experience the joy of dancing.
-                Let go of worries, embrace the rhythm, and Dance Your Heart Out with Bliss Out.
+                Bliss Out Dance Studio is more than a place to learn dance- it's
+                a space where passion, creativity, and happiness come together.
+                We believe every movement tells a story, every beat inspires
+                confidence, and every dancer deserves to feel free. Our mission
+                is to create a welcoming community where people of all ages can
+                learn, grow, express themselves, experience the joy of dancing.
+                Let go of worries, embrace the rhythm, and Dance Your Heart Out
+                with Bliss Out.
               </p>
               <br />
               <div class="schedule-box">
@@ -2561,7 +2619,9 @@
               <span class="highlight">From Zero to Garba</span>
             </h3>
             <p class="section-subtitle" style="margin-bottom: 0">
-              From your very first step to becoming a confident performer, our workshop is thoughtfully designed to be fun, progressive, and perfomance-focused.
+              From your very first step to becoming a confident performer, our
+              workshop is thoughtfully designed to be fun, progressive, and
+              perfomance-focused.
             </p>
 
             <div class="learn-grid">
@@ -2569,15 +2629,18 @@
                 <div class="learn-card-icon">𝄞</div>
                 <div class="learn-card-title">Rhythm & Musicality</div>
                 <p class="learn-card-text">
-                  Develop a strong sense of rhythm by mastering Garba's 4-count, 6-count, and 8-count patterns. 
-                  Learn how to hear the music, understand timing, and dance in perfect sync.
+                  Develop a strong sense of rhythm by mastering Garba's 4-count,
+                  6-count, and 8-count patterns. Learn how to hear the music,
+                  understand timing, and dance in perfect sync.
                 </p>
               </div>
               <div class="learn-card">
                 <div class="learn-card-icon">𓀥</div>
                 <div class="learn-card-title">Footwork & Technique</div>
                 <p class="learn-card-text">
-                  Master everything from beginner to advance footwork, from Chakadhi, Dodhiya, 3-Talli to Spins, Barrels, Raas patterns, and choreography sections.
+                  Master everything from beginner to advance footwork, from
+                  Chakadhi, Dodhiya, 3-Talli to Spins, Barrels, Raas patterns,
+                  and choreography sections.
                 </p>
               </div>
               <div class="learn-card">
@@ -2592,22 +2655,28 @@
                 <div class="learn-card-icon">𓏵</div>
                 <div class="learn-card-title">Dandiya Raas</div>
                 <p class="learn-card-text">
-                  Explore traditional and modern Dandiya techniques, group formations, and safe dandiya-work for Navratri and stage performances.
+                  Explore traditional and modern Dandiya techniques, group
+                  formations, and safe dandiya-work for Navratri and stage
+                  performances.
                 </p>
               </div>
               <div class="learn-card">
                 <div class="learn-card-icon">👁</div>
                 <div class="learn-card-title">Performance Prepration</div>
                 <p class="learn-card-text">
-                  Build stage confidence with choreography, formations, performance etiquette, reherarsal techniques, and presentation skills that prepare you for live performances.
+                  Build stage confidence with choreography, formations,
+                  performance etiquette, reherarsal techniques, and presentation
+                  skills that prepare you for live performances.
                 </p>
               </div>
               <div class="learn-card">
                 <div class="learn-card-icon">🌏︎</div>
                 <div class="learn-card-title">Discover</div>
                 <p class="learn-card-text">
-                  Garba is not just a dance form it's a way of worshipping Maa Durga where every step is an offering of devotion with joy & happiness. 
-                  We let go of negativity and embrace the divine blessings that unite us all.
+                  Garba is not just a dance form it's a way of worshipping Maa
+                  Durga where every step is an offering of devotion with joy &
+                  happiness. We let go of negativity and embrace the divine
+                  blessings that unite us all.
                 </p>
               </div>
             </div>
@@ -3245,30 +3314,34 @@
        WHATSAPP FAB
   ============================================================ -->
     <div class="social-fab">
-    <!-- Instagram -->
-    <a
+      <!-- Instagram -->
+      <a
         href="https://www.instagram.com/_bliss_out_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
         class="fab-btn instagram-fab"
         target="_blank"
         aria-label="Instagram"
-    >
+      >
         <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm9.5 1a1.25 1.25 0 1 0 0 2.5A1.25 1.25 0 0 0 17.25 5zM12 6.5A5.5 5.5 0 1 0 17.5 12 5.5 5.5 0 0 0 12 6.5zm0 2A3.5 3.5 0 1 1 8.5 12 3.5 3.5 0 0 1 12 8.5z"/>
+          <path
+            d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm9.5 1a1.25 1.25 0 1 0 0 2.5A1.25 1.25 0 0 0 17.25 5zM12 6.5A5.5 5.5 0 1 0 17.5 12 5.5 5.5 0 0 0 12 6.5zm0 2A3.5 3.5 0 1 1 8.5 12 3.5 3.5 0 0 1 12 8.5z"
+          />
         </svg>
-    </a>
+      </a>
 
-    <!-- WhatsApp -->
-    <a
+      <!-- WhatsApp -->
+      <a
         href="https://wa.me/918964033641"
         class="fab-btn whatsapp-fab"
         target="_blank"
         aria-label="WhatsApp"
-    >
+      >
         <svg viewBox="0 0 32 32" fill="currentColor">
-            <path d="M16.02 3C8.84 3 3 8.73 3 15.8c0 2.48.72 4.9 2.08 6.98L3 29l6.45-2.04a13.1 13.1 0 0 0 6.57 1.77h.01C23.2 28.73 29 23 29 15.93 29 8.73 23.2 3 16.02 3zm7.66 18.3c-.32.9-1.87 1.7-2.58 1.8-.67.1-1.5.15-2.43-.15-.56-.18-1.28-.42-2.2-.81-3.88-1.67-6.4-5.57-6.6-5.84-.2-.28-1.58-2.08-1.58-3.98s1-2.84 1.36-3.23c.36-.39.78-.48 1.04-.48.26 0 .52 0 .74.01.24.01.56-.09.88.68.32.77 1.08 2.66 1.18 2.86.1.2.16.44.03.72-.13.28-.2.45-.4.69-.2.24-.42.53-.6.71-.2.2-.41.42-.18.82.23.4 1.02 1.67 2.2 2.7 1.51 1.32 2.78 1.73 3.18 1.93.4.2.63.17.87-.1.24-.28 1-1.16 1.26-1.56.26-.4.52-.33.88-.2.36.13 2.28 1.07 2.67 1.27.39.2.65.3.75.47.1.16.1.93-.22 1.83z"/>
+          <path
+            d="M16.02 3C8.84 3 3 8.73 3 15.8c0 2.48.72 4.9 2.08 6.98L3 29l6.45-2.04a13.1 13.1 0 0 0 6.57 1.77h.01C23.2 28.73 29 23 29 15.93 29 8.73 23.2 3 16.02 3zm7.66 18.3c-.32.9-1.87 1.7-2.58 1.8-.67.1-1.5.15-2.43-.15-.56-.18-1.28-.42-2.2-.81-3.88-1.67-6.4-5.57-6.6-5.84-.2-.28-1.58-2.08-1.58-3.98s1-2.84 1.36-3.23c.36-.39.78-.48 1.04-.48.26 0 .52 0 .74.01.24.01.56-.09.88.68.32.77 1.08 2.66 1.18 2.86.1.2.16.44.03.72-.13.28-.2.45-.4.69-.2.24-.42.53-.6.71-.2.2-.41.42-.18.82.23.4 1.02 1.67 2.2 2.7 1.51 1.32 2.78 1.73 3.18 1.93.4.2.63.17.87-.1.24-.28 1-1.16 1.26-1.56.26-.4.52-.33.88-.2.36.13 2.28 1.07 2.67 1.27.39.2.65.3.75.47.1.16.1.93-.22 1.83z"
+          />
         </svg>
-    </a>
-</div>
+      </a>
+    </div>
 
     <!-- ============================================================
      SUCCESS MODAL
@@ -3374,17 +3447,29 @@
         hamburger.addEventListener("click", () => {
           navLinks.classList.toggle("open");
           overlay.classList.toggle("open");
+          hamburger.classList.toggle("active");
         });
 
-        overlay.addEventListener("click", () => {
+        document.addEventListener("click", (e) => {
+          // Only do anything if the menu is open
+          if (!navLinks.classList.contains("open")) return;
+
+          // Ignore clicks inside the menu or on the hamburger button
+          if (navLinks.contains(e.target) || hamburger.contains(e.target)) {
+            return;
+          }
+
+          // Close everything
           navLinks.classList.remove("open");
           overlay.classList.remove("open");
+          hamburger.classList.remove("active");
         });
 
         navLinks.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", () => {
             navLinks.classList.remove("open");
             overlay.classList.remove("open");
+            hamburger.classList.remove("active");
           });
         });
 
