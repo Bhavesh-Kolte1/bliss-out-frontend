@@ -1,0 +1,1572 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — Bliss Out Dance Studio</title>
+    <meta
+      name="description"
+      content="Privacy Policy for Bliss Out Dance Studio, Khandwa — how we collect, use and protect your data, plus our refund, cancellation and digital delivery policies."
+    />
+    <meta property="og:title" content="Privacy Policy — Bliss Out Dance Studio" />
+    <meta
+      property="og:description"
+      content="How Bliss Out Dance Studio collects, uses and protects your information, along with our refund, cancellation and digital delivery policies."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+       DESIGN TOKENS (matches index.html exactly)
+    ============================================================ */
+      :root {
+        --bg-void: #0b0911;
+        --bg-deep: #0f0c15;
+        --bg-card: #1a1526;
+        --bg-card-alt: #201830;
+
+        --crimson: #c8102e;
+        --crimson-light: #e8234a;
+        --crimson-glow: rgba(200, 16, 46, 0.35);
+
+        --gold: #f5a623;
+        --gold-light: #ffd166;
+        --gold-glow: rgba(245, 166, 35, 0.3);
+
+        --magenta: #e040fb;
+        --teal: #00bcd4;
+
+        --text-primary: #f9f4ee;
+        --text-muted: #a89bb0;
+        --text-faint: #6a5f75;
+
+        --border-dim: rgba(245, 166, 35, 0.15);
+        --border-mid: rgba(245, 166, 35, 0.3);
+
+        --radius-sm: 8px;
+        --radius-md: 16px;
+        --radius-lg: 28px;
+        --radius-xl: 48px;
+
+        --font-display: "Cinzel Decorative", serif;
+        --font-body: "Outfit", sans-serif;
+
+        --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* ============================================================
+       RESET & BASE
+    ============================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--bg-void);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        line-height: 1.65;
+      }
+
+      ::selection {
+        background: var(--crimson);
+        color: #fff;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      address {
+        font-style: normal;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      /* ============================================================
+       SKIP LINK
+    ============================================================ */
+      .skip-link {
+        position: absolute;
+        top: -60px;
+        left: 16px;
+        background: var(--crimson);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: var(--radius-sm);
+        z-index: 10000;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: top 0.3s ease;
+      }
+      .skip-link:focus {
+        top: 16px;
+      }
+
+      /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-deep);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--crimson);
+        border-radius: 3px;
+      }
+
+      /* ============================================================
+       NOISE OVERLAY (global texture)
+    ============================================================ */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.5;
+      }
+
+      /* ============================================================
+       NAVIGATION
+    ============================================================ */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 40px;
+        transition: var(--transition);
+        background: rgba(7, 6, 10, 0.92);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border-dim);
+      }
+
+      .nav.scrolled {
+        padding: 12px 40px;
+      }
+
+      .nav-logo {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 0.04em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .nav-logo-img {
+        height: 38px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a.current {
+        color: var(--gold);
+      }
+      .nav-links a.current::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        background: linear-gradient(135deg, var(--crimson), #8b0011);
+        color: #fff !important;
+        padding: 10px 22px;
+        border-radius: var(--radius-xl);
+        font-weight: 600 !important;
+        text-transform: none !important;
+        letter-spacing: 0.02em !important;
+        box-shadow: 0 4px 20px var(--crimson-glow);
+        transition: var(--transition) !important;
+      }
+
+      .nav-cta::after {
+        display: none !important;
+      }
+      .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px var(--crimson-glow) !important;
+        color: #fff !important;
+      }
+
+      .nav-hamburger {
+        display: none;
+        width: 52px;
+        height: 52px;
+        border: 1px solid rgba(245, 166, 35, 0.25);
+        border-radius: 50%;
+        background: rgba(20, 18, 28, 0.35);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        cursor: pointer;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        transition: 0.35s ease;
+        box-shadow:
+          0 0 20px rgba(245, 166, 35, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-hamburger:hover {
+        transform: translateY(-2px) scale(1.05);
+        border-color: var(--gold);
+        box-shadow:
+          0 0 30px rgba(245, 166, 35, 0.28),
+          0 0 12px rgba(200, 16, 46, 0.18);
+      }
+
+      .nav-hamburger span {
+        position: absolute;
+        width: 22px;
+        height: 2.5px;
+        border-radius: 20px;
+        background: linear-gradient(90deg, var(--gold), #ffd166);
+        transition: 0.35s ease;
+      }
+
+      .nav-hamburger span:nth-child(1) {
+        transform: translateY(-7px);
+      }
+      .nav-hamburger span:nth-child(2) {
+        transform: translateY(0);
+      }
+      .nav-hamburger span:nth-child(3) {
+        transform: translateY(7px);
+      }
+
+      .nav-hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      .nav-hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .nav-hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+      .nav-hamburger.active {
+        border-color: var(--crimson);
+        box-shadow:
+          0 0 25px rgba(200, 16, 46, 0.35),
+          0 0 12px rgba(245, 166, 35, 0.25);
+      }
+
+      @media (max-width: 768px) {
+        .nav {
+          padding: 16px 20px;
+        }
+        .nav.scrolled {
+          padding: 12px 20px;
+        }
+        .nav-hamburger {
+          display: flex;
+          flex-direction: column;
+        }
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 80%;
+          max-width: 320px;
+          height: 100vh;
+          background: var(--bg-deep);
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 80px 32px 40px;
+          gap: 24px;
+          border-left: 1px solid var(--border-dim);
+          transition: var(--transition-slow);
+          z-index: 999;
+        }
+        .nav-links.open {
+          right: 0;
+        }
+        .nav-links a {
+          font-size: 1.1rem;
+        }
+        .nav-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.7);
+          z-index: 998;
+          display: none;
+        }
+        .nav-overlay.open {
+          display: block;
+        }
+      }
+
+      /* ============================================================
+       SHARED SECTION / REVEAL / BUTTON PATTERNS
+    ============================================================ */
+      section {
+        padding: 100px 20px;
+        position: relative;
+      }
+
+      .container {
+        max-width: 1160px;
+        margin: 0 auto;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      .btn-primary {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, var(--crimson) 0%, #9a000f 100%);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 700;
+        padding: 16px 34px;
+        border-radius: var(--radius-xl);
+        border: none;
+        cursor: pointer;
+        box-shadow:
+          0 6px 40px var(--crimson-glow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        transition: var(--transition);
+        letter-spacing: 0.02em;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 50px var(--crimson-glow);
+      }
+
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 15px 30px;
+        border-radius: var(--radius-xl);
+        border: 1.5px solid var(--border-mid);
+        cursor: pointer;
+        transition: var(--transition);
+        letter-spacing: 0.01em;
+      }
+      .btn-secondary:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes orbFloat {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(30px, -40px) scale(1.05);
+        }
+        66% {
+          transform: translate(-20px, 20px) scale(0.95);
+        }
+      }
+
+      /* ============================================================
+       POLICY HERO (compact variant of the main hero)
+    ============================================================ */
+      .policy-hero {
+        position: relative;
+        padding: 160px 20px 90px;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .policy-hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 70% 55% at 50% 0%,
+            rgba(220, 40, 70, 0.24) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            ellipse 60% 55% at 88% 90%,
+            rgba(255, 193, 7, 0.18) 0%,
+            transparent 60%
+          ),
+          var(--bg-void);
+      }
+
+      .policy-hero-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        animation: orbFloat 8s ease-in-out infinite;
+      }
+      .policy-hero-orb-1 {
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(
+          circle,
+          rgba(200, 16, 46, 0.22),
+          transparent 70%
+        );
+        top: -110px;
+        left: -80px;
+      }
+      .policy-hero-orb-2 {
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(
+          circle,
+          rgba(245, 166, 35, 0.18),
+          transparent 70%
+        );
+        bottom: -90px;
+        right: -60px;
+        animation-delay: -4s;
+      }
+
+      .policy-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .policy-back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin-bottom: 28px;
+        transition: var(--transition);
+        animation: fadeInDown 0.8s both;
+      }
+      .policy-back-link:hover {
+        color: var(--gold);
+      }
+      .policy-back-link .arrow {
+        transition: transform 0.3s ease;
+      }
+      .policy-back-link:hover .arrow {
+        transform: translateX(-4px);
+      }
+
+      .policy-hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.1rem, 5vw, 3.4rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--crimson) 60%,
+          var(--gold-light) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInDown 0.9s 0.1s both;
+      }
+
+      .policy-hero-subtitle {
+        font-size: clamp(0.98rem, 2vw, 1.12rem);
+        color: var(--text-muted);
+        line-height: 1.75;
+        max-width: 640px;
+        margin: 0 auto;
+        animation: fadeInDown 0.9s 0.2s both;
+      }
+
+      .policy-hero-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 28px;
+        padding: 9px 20px;
+        border: 1px solid var(--border-dim);
+        border-radius: var(--radius-xl);
+        font-size: 0.82rem;
+        color: var(--text-faint);
+        animation: fadeInDown 0.9s 0.3s both;
+      }
+      .policy-hero-meta strong {
+        color: var(--gold-light);
+        font-weight: 600;
+      }
+
+      /* ============================================================
+       POLICY CONTENT / CARDS
+    ============================================================ */
+      .policy-content {
+        padding-top: 20px;
+      }
+
+      .policy-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .policy-card {
+        background: linear-gradient(
+          180deg,
+          rgba(26, 21, 38, 0.78),
+          rgba(15, 12, 21, 0.6)
+        );
+        border: 1px solid var(--border-dim);
+        border-radius: var(--radius-lg);
+        padding: 48px 46px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        transition: var(--transition);
+        scroll-margin-top: 100px;
+      }
+
+      .policy-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--crimson), var(--gold));
+      }
+
+      .policy-card:hover {
+        border-color: var(--border-mid);
+        transform: translateY(-4px);
+        box-shadow:
+          0 28px 70px rgba(0, 0, 0, 0.45),
+          0 0 40px var(--gold-glow);
+      }
+
+      .policy-card-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.7rem;
+        background: linear-gradient(
+          135deg,
+          rgba(200, 16, 46, 0.18),
+          rgba(245, 166, 35, 0.18)
+        );
+        border: 1px solid var(--border-mid);
+        margin-bottom: 24px;
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .policy-card-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 22px;
+        line-height: 1.3;
+      }
+
+      .policy-card-divider {
+        width: 64px;
+        height: 3px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--crimson), var(--gold));
+        margin-bottom: 30px;
+      }
+
+      .policy-subhead {
+        font-family: var(--font-display);
+        font-size: 1.08rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 32px 0 12px;
+        letter-spacing: 0.01em;
+      }
+      .policy-card > .policy-subhead:first-of-type {
+        margin-top: 0;
+      }
+
+      .policy-text {
+        color: var(--text-muted);
+        font-size: 0.97rem;
+        line-height: 1.8;
+        margin-bottom: 14px;
+      }
+      .policy-text:last-child {
+        margin-bottom: 0;
+      }
+
+      .policy-text strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .policy-list {
+        list-style: none;
+        margin: 4px 0 18px;
+      }
+      .policy-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .policy-list li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .policy-list .check {
+        color: var(--gold);
+        font-size: 0.95rem;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      .policy-list strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .policy-note {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        background: rgba(200, 16, 46, 0.08);
+        border: 1px solid rgba(200, 16, 46, 0.2);
+        border-radius: var(--radius-sm);
+        padding: 16px 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin: 8px 0 22px;
+      }
+      .policy-note .icon {
+        color: var(--gold);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .policy-note strong {
+        color: var(--text-primary);
+      }
+
+      /* Contact card */
+      .policy-contact-lead {
+        color: var(--text-muted);
+        font-size: 0.97rem;
+        line-height: 1.75;
+        margin-bottom: 28px;
+      }
+
+      .policy-contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-bottom: 32px;
+      }
+
+      .policy-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--border-dim);
+        border-radius: var(--radius-md);
+        background: rgba(255, 255, 255, 0.02);
+        transition: var(--transition);
+      }
+      .policy-contact-item:hover {
+        border-color: var(--border-mid);
+        background: rgba(245, 166, 35, 0.05);
+        transform: translateY(-2px);
+      }
+      .policy-contact-item .icon {
+        font-size: 1.3rem;
+        color: var(--gold);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .policy-contact-item .label {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--text-faint);
+        margin-bottom: 4px;
+      }
+      .policy-contact-item .value,
+      .policy-contact-item a {
+        color: var(--text-primary);
+        font-size: 0.96rem;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      .policy-contact-item a:hover {
+        color: var(--gold);
+      }
+
+      .policy-contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      /* Bottom notice */
+      .policy-final-notice {
+        max-width: 860px;
+        margin: 56px auto 0;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 166, 35, 0.09),
+          rgba(200, 16, 46, 0.07)
+        );
+        border: 1px solid var(--border-mid);
+        border-radius: var(--radius-lg);
+        padding: 36px 40px;
+        color: var(--text-primary);
+        font-size: 1rem;
+        line-height: 1.75;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      }
+      .policy-final-notice .icon {
+        font-size: 1.9rem;
+        display: block;
+        margin-bottom: 14px;
+        color: var(--gold);
+      }
+
+      /* ============================================================
+       FOOTER
+    ============================================================ */
+      .footer {
+        background: var(--bg-void);
+        border-top: 1px solid var(--border-dim);
+        padding: 64px 20px 32px;
+      }
+
+      .footer-grid {
+        max-width: 1160px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid var(--border-dim);
+        margin-bottom: 32px;
+      }
+
+      .footer-brand .nav-logo {
+        margin-bottom: 16px;
+        font-size: 1rem;
+      }
+
+      .footer-brand p {
+        color: var(--text-faint);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        max-width: 280px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .footer-social-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .footer-social-btn:hover {
+        border-color: var(--gold);
+        background: rgba(245, 166, 35, 0.1);
+        transform: translateY(-3px);
+      }
+
+      .footer-col-title {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+      }
+
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-links a {
+        color: var(--text-faint);
+        font-size: 0.88rem;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .footer-links a:hover {
+        color: var(--gold);
+        padding-left: 4px;
+      }
+
+      .footer-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: var(--text-faint);
+        font-size: 0.88rem;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+
+      .footer-contact-item .icon {
+        font-size: 1.1rem;
+        color: var(--gold);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .footer-contact-item a {
+        color: var(--text-faint);
+        transition: var(--transition);
+      }
+      .footer-contact-item a:hover {
+        color: var(--gold);
+      }
+
+      .footer-bottom {
+        max-width: 1160px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.82rem;
+        color: var(--text-faint);
+      }
+
+      .footer-bottom a {
+        color: var(--gold);
+      }
+
+      @media (max-width: 900px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 36px;
+        }
+      }
+
+      @media (max-width: 580px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 8px;
+          text-align: center;
+        }
+      }
+
+      /* ============================================================
+       RESPONSIVE — POLICY PAGE
+    ============================================================ */
+      @media (max-width: 640px) {
+        section {
+          padding: 70px 20px;
+        }
+        .policy-hero {
+          padding: 120px 20px 60px;
+        }
+        .policy-card {
+          padding: 34px 24px;
+        }
+        .policy-card-icon {
+          width: 54px;
+          height: 54px;
+          font-size: 1.4rem;
+        }
+        .policy-contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .policy-final-notice {
+          padding: 28px 24px;
+        }
+        .btn-primary,
+        .btn-secondary {
+          font-size: 0.9rem;
+          padding: 14px 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+    <nav class="nav scrolled" id="mainNav">
+      <a href="index.html" class="nav-logo">
+        <img
+          src="assets/logo.png"
+          alt="Bliss Out Dance Studio"
+          class="nav-logo-img"
+        />
+        Bliss Out
+      </a>
+
+      <div class="nav-overlay" id="navOverlay"></div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">Workshop</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="privacy-policy.html">Privacy</a></li>
+        <li>
+          <a href="index.html#register" class="nav-cta">Register Now</a>
+        </li>
+      </ul>
+
+      <button
+        class="nav-hamburger"
+        id="navHamburger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main id="main-content">
+      <!-- ============================================================
+         HERO
+    ============================================================ -->
+      <section class="policy-hero">
+        <div class="policy-hero-bg"></div>
+        <div class="policy-hero-orb policy-hero-orb-1"></div>
+        <div class="policy-hero-orb policy-hero-orb-2"></div>
+
+        <div class="policy-hero-content">
+          <a href="index.html" class="policy-back-link">
+            <span class="arrow" aria-hidden="true">←</span>
+            <span>Back to Home</span>
+          </a>
+
+          <h1 class="policy-hero-title">Privacy Policy</h1>
+
+          <p class="policy-hero-subtitle">
+            Your privacy and trust are important to us. This page explains
+            how Bliss Out Dance Studio collects, uses, stores and protects
+            your information, along with our refund, cancellation and
+            digital delivery policies.
+          </p>
+
+          <div class="policy-hero-meta">
+            <span aria-hidden="true">🗒</span>
+            <span>Effective Date: <strong>4 August 2026</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         POLICY CONTENT
+    ============================================================ -->
+      <section class="policy-content">
+        <div class="container">
+          <div class="policy-cards">
+            <!-- ============================================
+                 CARD 1 — PRIVACY POLICY
+            ============================================= -->
+            <article
+              class="policy-card reveal"
+              id="privacy"
+              aria-labelledby="privacy-heading"
+            >
+              <div class="policy-card-icon" aria-hidden="true">🛡</div>
+              <h2 class="policy-card-title" id="privacy-heading">
+                Privacy Policy
+              </h2>
+              <div class="policy-card-divider"></div>
+
+              <p class="policy-text">
+                At Bliss Out Dance Studio, protecting the trust of every
+                dancer who joins us matters as much as the choreography
+                itself. This section explains what information we collect,
+                why we collect it, and how it is kept safe.
+              </p>
+
+              <h3 class="policy-subhead">Information We Collect</h3>
+              <p class="policy-text">
+                When you register for a workshop or reach out to us, we may
+                collect the following details:
+              </p>
+              <ul class="policy-list">
+                <li><span class="check" aria-hidden="true">✦</span> Full Name</li>
+                <li><span class="check" aria-hidden="true">✦</span> Email Address</li>
+                <li><span class="check" aria-hidden="true">✦</span> Phone Number</li>
+                <li><span class="check" aria-hidden="true">✦</span> Age</li>
+                <li><span class="check" aria-hidden="true">✦</span> Dance Level</li>
+                <li><span class="check" aria-hidden="true">✦</span> City</li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Payment
+                  details, processed securely via Razorpay
+                </li>
+              </ul>
+
+              <div class="policy-note">
+                <span class="icon" aria-hidden="true">🔒</span>
+                <span
+                  ><strong>Your card, UPI and banking details are never
+                  stored on our servers.</strong>
+                  All payments are handled directly and securely by
+                  Razorpay's payment infrastructure.</span
+                >
+              </div>
+
+              <h3 class="policy-subhead">How We Use Your Information</h3>
+              <p class="policy-text">
+                The information you share with us is used only to serve you
+                better, specifically to:
+              </p>
+              <ul class="policy-list">
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Process
+                  and confirm your Garba workshop registration
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Verify
+                  successful payment
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Generate
+                  and deliver your digital Garba Pass
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Communicate
+                  updates and reminders via WhatsApp
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Communicate
+                  confirmations and updates via Email
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Provide
+                  customer support when you reach out to us
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Manage
+                  batches, schedules and overall workshop logistics
+                </li>
+              </ul>
+
+              <h3 class="policy-subhead">Data Security</h3>
+              <p class="policy-text">
+                We follow reasonable, industry-appropriate security measures
+                to protect your personal information from unauthorized
+                access, alteration or disclosure. While no method of
+                transmission over the internet is completely infallible, we
+                take your privacy seriously and work to safeguard it at
+                every step. Your personal data is
+                <strong>never sold, rented or traded</strong> to any third
+                party.
+              </p>
+
+              <h3 class="policy-subhead">Third-Party Services</h3>
+              <p class="policy-text">
+                To operate smoothly, Bliss Out Dance Studio relies on a
+                small number of trusted third-party services, including:
+              </p>
+              <ul class="policy-list">
+                <li>
+                  <span class="check" aria-hidden="true">✦</span>
+                  <strong>Razorpay</strong> — for secure payment processing
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span>
+                  <strong>Email service providers</strong> — for
+                  confirmations and updates
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span>
+                  <strong>WhatsApp Business Platform</strong> — for pass
+                  delivery and communication
+                </li>
+              </ul>
+              <p class="policy-text">
+                Each of these services operates under its own privacy
+                policy, and we encourage you to review them to understand
+                how they handle your data.
+              </p>
+            </article>
+
+            <!-- ============================================
+                 CARD 2 — REFUND & CANCELLATION POLICY
+            ============================================= -->
+            <article
+              class="policy-card reveal"
+              id="refund"
+              aria-labelledby="refund-heading"
+            >
+              <div class="policy-card-icon" aria-hidden="true">↺</div>
+              <h2 class="policy-card-title" id="refund-heading">
+                Refund & Cancellation Policy
+              </h2>
+              <div class="policy-card-divider"></div>
+
+              <ul class="policy-list">
+                <li>
+                  <span class="check" aria-hidden="true">✦</span>
+                  Registration fees are generally
+                  <strong>non-refundable</strong> once payment has been
+                  successfully completed.
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> In the case
+                  of duplicate payments, the extra amount will be refunded
+                  after verification.
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> If Bliss
+                  Out Dance Studio cancels a workshop for any reason, all
+                  eligible participants will receive a
+                  <strong>full refund</strong>.
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> If your
+                  payment succeeds but registration fails due to a technical
+                  issue, please contact us with your payment details. Once
+                  verified, we will provide an appropriate resolution,
+                  including a refund where applicable.
+                </li>
+              </ul>
+            </article>
+
+            <!-- ============================================
+                 CARD 3 — SHIPPING & DELIVERY POLICY
+            ============================================= -->
+            <article
+              class="policy-card reveal"
+              id="shipping"
+              aria-labelledby="shipping-heading"
+            >
+              <div class="policy-card-icon" aria-hidden="true">📦</div>
+              <h2 class="policy-card-title" id="shipping-heading">
+                Shipping & Delivery Policy
+              </h2>
+              <div class="policy-card-divider"></div>
+
+              <p class="policy-text">
+                Bliss Out Dance Studio sells only digital workshop
+                registrations. <strong>No physical products are shipped</strong>
+                or delivered.
+              </p>
+
+              <h3 class="policy-subhead">What You Receive</h3>
+              <p class="policy-text">
+                Once your payment has been verified, you will receive:
+              </p>
+              <ul class="policy-list">
+                <li>
+                  <span class="check" aria-hidden="true">✦</span>
+                  Registration Confirmation
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Garba Pass
+                  (PDF)
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> Email
+                  Confirmation
+                </li>
+                <li>
+                  <span class="check" aria-hidden="true">✦</span> WhatsApp
+                  Pass (when available)
+                </li>
+              </ul>
+              <p class="policy-text">
+                Delivery usually happens within a few minutes of successful
+                payment. If you haven't received your confirmation, please
+                reach out to the studio and we'll help sort it out right
+                away.
+              </p>
+            </article>
+
+            <!-- ============================================
+                 CARD 4 — CONTACT
+            ============================================= -->
+            <article
+              class="policy-card reveal"
+              id="policy-contact"
+              aria-labelledby="contact-heading"
+            >
+              <div class="policy-card-icon" aria-hidden="true">✉</div>
+              <h2 class="policy-card-title" id="contact-heading">
+                Get in Touch
+              </h2>
+              <div class="policy-card-divider"></div>
+
+              <p class="policy-contact-lead">
+                Questions about this policy, your registration, or anything
+                else? We're happy to help.
+              </p>
+
+              <address class="policy-contact-grid">
+                <div class="policy-contact-item">
+                  <span class="icon" aria-hidden="true">⚲</span>
+                  <div>
+                    <span class="label">Studio</span>
+                    <span class="value">Bliss Out Dance Studio</span>
+                  </div>
+                </div>
+                <div class="policy-contact-item">
+                  <span class="icon" aria-hidden="true">🖂</span>
+                  <div>
+                    <span class="label">Email</span>
+                    <a href="mailto:blissout303@gmail.com"
+                      >blissout303@gmail.com</a
+                    >
+                  </div>
+                </div>
+                <div class="policy-contact-item">
+                  <span class="icon" aria-hidden="true">🕻</span>
+                  <div>
+                    <span class="label">Phone</span>
+                    <a href="tel:+918964033641">+91 89640 33641</a>
+                  </div>
+                </div>
+                <div class="policy-contact-item">
+                  <span class="icon" aria-hidden="true">◴</span>
+                  <div>
+                    <span class="label">Location</span>
+                    <span class="value">Khandwa, Madhya Pradesh</span>
+                  </div>
+                </div>
+              </address>
+
+              <div class="policy-contact-actions">
+                <a href="mailto:blissout303@gmail.com" class="btn-primary">
+                  <span>Email Us</span>
+                </a>
+                <a href="tel:+918964033641" class="btn-secondary">
+                  <span>Call the Studio</span>
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <!-- ============================================
+               BOTTOM NOTICE
+          ============================================= -->
+          <div class="policy-final-notice reveal">
+            <span class="icon" aria-hidden="true">🙏</span>
+            By using this website and registering for our workshops, you
+            agree to the policies described on this page.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+    <footer class="footer" id="contact">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <img
+              src="assets/logo.png"
+              alt="Bliss Out Dance Studio"
+              class="nav-logo-img"
+            />
+            Bliss Out
+          </a>
+          <p>
+            Khandwa's most beloved Garba & dance studio. We don't just teach
+            steps — we ignite a lifelong love for dance, culture, and
+            expression.
+          </p>
+          <div class="footer-social">
+            <a
+              class="footer-social-btn"
+              href="https://wa.me/918964033641"
+              target="_blank"
+              title="WhatsApp"
+              >➤</a
+            >
+            <a
+              class="footer-social-btn"
+              href="mailto:blissout303@gmail.com"
+              title="Email"
+              >🖂</a
+            >
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html#home">→ Home</a></li>
+            <li><a href="index.html#about">→ About Workshop</a></li>
+            <li><a href="index.html#gallery">→ Gallery</a></li>
+            <li><a href="index.html#pricing">→ Pricing</a></li>
+            <li><a href="index.html#register">→ Register Now</a></li>
+            <li><a href="index.html#testimonials">→ Reviews</a></li>
+            <li><a href="privacy-policy.html">→ Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Workshop Info</div>
+          <ul class="footer-links">
+            <li><a href="index.html#about">→ Workshop Curriculum</a></li>
+            <li><a href="index.html#about">→ Schedule & Timings</a></li>
+            <li><a href="index.html#about">→ Batch Details</a></li>
+            <li><a href="index.html#faq">→ Certificate Programme</a></li>
+            <li><a href="index.html#gallery">→ Navratri Showcase</a></li>
+            <li><a href="privacy-policy.html">→ Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Contact Us</div>
+          <div class="footer-contact-item">
+            <span class="icon">⚲</span>
+            <span
+              >Bliss Out Dance Studio,<br />Khandwa, Madhya Pradesh,<br />India
+              — 450001</span
+            >
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">🕻</span>
+            <a href="tel:+918964033641">+91 89640 33641</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">🖂</span>
+            <a href="mailto:blissout303@gmail.com">blissout303@gmail.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">◴</span>
+            <span>Mon–Sat: 6:30 PM – 9:00 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span
+          >© 2025 Bliss Out Dance Studio, Khandwa. All rights reserved.</span
+        >
+        <span
+          >Made with ❤️ for Garba lovers · Powered by
+          <a href="#">Razorpay</a></span
+        >
+      </div>
+    </footer>
+
+    <script>
+      "use strict";
+
+      // ── NAVIGATION ──────────────────────────────────────────────
+      const nav = document.getElementById("mainNav");
+      const hamburger = document.getElementById("navHamburger");
+      const navLinks = document.getElementById("navLinks");
+      const overlay = document.getElementById("navOverlay");
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.classList.toggle("scrolled", window.scrollY > 60);
+        },
+        { passive: true },
+      );
+
+      hamburger.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        overlay.classList.toggle("open");
+        hamburger.classList.toggle("active");
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!navLinks.classList.contains("open")) return;
+        if (navLinks.contains(e.target) || hamburger.contains(e.target)) {
+          return;
+        }
+        navLinks.classList.remove("open");
+        overlay.classList.remove("open");
+        hamburger.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          overlay.classList.remove("open");
+          hamburger.classList.remove("active");
+          hamburger.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      // ── SCROLL REVEAL ────────────────────────────────────────────
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 },
+      );
+      reveals.forEach((r, i) => {
+        r.classList.add(`reveal-delay-${Math.min((i % 4) + 1, 4)}`);
+        observer.observe(r);
+      });
+    </script>
+  </body>
+</html>
