@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin.html
+
+Sitemap: https://bliss-out-frontend.vercel.app/sitemap.xml
