@@ -3,22 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privacy Policy — Bliss Out Dance Studio</title>
+    <title>Contact Us — Bliss Out Dance Studio</title>
     <meta
       name="description"
-      content="Privacy Policy for Bliss Out Dance Studio, Khandwa — how we collect, use and protect your data, plus our refund, cancellation and digital delivery policies."
+      content="Contact Bliss Out Dance Studio in Khandwa, Madhya Pradesh for workshop registration, class information, payments, and general enquiries."
     />
     <link
       rel="canonical"
-      href="https://bliss-out-frontend.vercel.app/privacy-policy.html"
+      href="https://bliss-out-frontend.vercel.app/contact.html"
     />
-    <meta
-      property="og:title"
-      content="Privacy Policy — Bliss Out Dance Studio"
-    />
+    <meta property="og:title" content="Contact Us — Bliss Out Dance Studio" />
     <meta
       property="og:description"
-      content="How Bliss Out Dance Studio collects, uses and protects your information, along with our refund, cancellation and digital delivery policies."
+      content="Have a question about our Garba workshop, registration, batches or payments? Reach Bliss Out Dance Studio in Khandwa, Madhya Pradesh by phone, email or WhatsApp."
     />
     <meta property="og:type" content="website" />
 
@@ -33,9 +30,28 @@
       rel="stylesheet"
     />
 
+    <!-- Structured data for business/contact verification -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Bliss Out Dance Studio",
+        "email": "blissout303@gmail.com",
+        "telephone": "+91-89640-33641",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Khandwa",
+          "addressRegion": "Madhya Pradesh",
+          "postalCode": "450001",
+          "addressCountry": "IN"
+        },
+        "url": "https://bliss-out-frontend.vercel.app/contact.html"
+      }
+    </script>
+
     <style>
       /* ============================================================
-       DESIGN TOKENS (matches index.html exactly)
+       DESIGN TOKENS (matches privacy-policy.html / index.html exactly)
     ============================================================ */
       :root {
         --bg-void: #0b0911;
@@ -465,6 +481,11 @@
         transform: translateY(-2px);
       }
 
+      .btn-block {
+        width: 100%;
+        justify-content: center;
+      }
+
       @keyframes fadeInDown {
         from {
           opacity: 0;
@@ -490,7 +511,7 @@
       }
 
       /* ============================================================
-       POLICY HERO (compact variant of the main hero)
+       CONTACT HERO (compact variant, matches privacy-policy.html hero)
     ============================================================ */
       .policy-hero {
         position: relative;
@@ -621,21 +642,41 @@
       }
 
       /* ============================================================
-       POLICY CONTENT / CARDS
+       CONTACT CONTENT — shared card shell
+       (same visual language as .policy-card in privacy-policy.html)
     ============================================================ */
-      .policy-content {
+      .contact-content {
         padding-top: 20px;
       }
 
-      .policy-cards {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
+      .contact-block {
         max-width: 900px;
-        margin: 0 auto;
+        margin: 64px auto 0;
+      }
+      .contact-block:first-child {
+        margin-top: 0;
       }
 
-      .policy-card {
+      .contact-block-heading {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .contact-block-heading .contact-card-title {
+        margin-bottom: 16px;
+      }
+      .contact-block-heading .contact-card-divider {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-block-heading p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        max-width: 480px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .contact-card {
         background: linear-gradient(
           180deg,
           rgba(26, 21, 38, 0.78),
@@ -650,10 +691,9 @@
         -webkit-backdrop-filter: blur(18px);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         transition: var(--transition);
-        scroll-margin-top: 100px;
       }
 
-      .policy-card::before {
+      .contact-card::before {
         content: "";
         position: absolute;
         top: 0;
@@ -663,15 +703,14 @@
         background: linear-gradient(90deg, var(--crimson), var(--gold));
       }
 
-      .policy-card:hover {
+      .contact-card:hover {
         border-color: var(--border-mid);
-        transform: translateY(-4px);
         box-shadow:
-          0 28px 70px rgba(0, 0, 0, 0.45),
+          0 28px 70px rgba(0, 0, 0, 0.4),
           0 0 40px var(--gold-glow);
       }
 
-      .policy-card-icon {
+      .contact-card-icon {
         width: 64px;
         height: 64px;
         border-radius: 50%;
@@ -685,22 +724,25 @@
           rgba(245, 166, 35, 0.18)
         );
         border: 1px solid var(--border-mid);
-        margin-bottom: 24px;
+        margin: 0 auto 24px;
         box-shadow:
           0 8px 24px rgba(0, 0, 0, 0.3),
           inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
 
-      .policy-card-title {
+      .contact-card-icon.is-inline {
+        margin: 0 0 24px;
+      }
+
+      .contact-card-title {
         font-family: var(--font-display);
         font-size: clamp(1.35rem, 2.4vw, 1.75rem);
         font-weight: 700;
         color: var(--gold);
-        margin-bottom: 22px;
         line-height: 1.3;
       }
 
-      .policy-card-divider {
+      .contact-card-divider {
         width: 64px;
         height: 3px;
         border-radius: 3px;
@@ -708,170 +750,227 @@
         margin-bottom: 30px;
       }
 
-      .policy-subhead {
-        font-family: var(--font-display);
-        font-size: 1.08rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin: 32px 0 12px;
-        letter-spacing: 0.01em;
-      }
-      .policy-card > .policy-subhead:first-of-type {
-        margin-top: 0;
-      }
-
-      .policy-text {
+      .contact-text {
         color: var(--text-muted);
         font-size: 0.97rem;
         line-height: 1.8;
         margin-bottom: 14px;
       }
-      .policy-text:last-child {
+      .contact-text:last-child {
         margin-bottom: 0;
       }
-
-      .policy-text strong {
+      .contact-text strong {
         color: var(--text-primary);
         font-weight: 600;
       }
 
-      .policy-list {
-        list-style: none;
-        margin: 4px 0 18px;
-      }
-      .policy-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 10px 0;
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        line-height: 1.65;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      }
-      .policy-list li:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-      .policy-list .check {
-        color: var(--gold);
-        font-size: 0.95rem;
-        margin-top: 2px;
-        flex-shrink: 0;
-      }
-      .policy-list strong {
-        color: var(--text-primary);
-        font-weight: 600;
-      }
-
-      .policy-note {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        background: rgba(200, 16, 46, 0.08);
-        border: 1px solid rgba(200, 16, 46, 0.2);
-        border-radius: var(--radius-sm);
-        padding: 16px 20px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        line-height: 1.7;
-        margin: 8px 0 22px;
-      }
-      .policy-note .icon {
-        color: var(--gold);
-        font-size: 1.1rem;
-        flex-shrink: 0;
-        margin-top: 1px;
-      }
-      .policy-note strong {
-        color: var(--text-primary);
-      }
-
-      /* Contact card */
-      .policy-contact-lead {
-        color: var(--text-muted);
-        font-size: 0.97rem;
-        line-height: 1.75;
-        margin-bottom: 28px;
-      }
-
-      .policy-contact-grid {
+      /* ============================================================
+       CONTACT INFORMATION GRID
+    ============================================================ */
+      .contact-info-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 18px;
-        margin-bottom: 32px;
       }
 
-      .policy-contact-item {
+      .contact-info-item {
         display: flex;
         align-items: flex-start;
-        gap: 14px;
-        padding: 18px;
+        gap: 16px;
+        padding: 22px;
         border: 1px solid var(--border-dim);
         border-radius: var(--radius-md);
         background: rgba(255, 255, 255, 0.02);
         transition: var(--transition);
       }
-      .policy-contact-item:hover {
+      .contact-info-item:hover {
         border-color: var(--border-mid);
         background: rgba(245, 166, 35, 0.05);
         transform: translateY(-2px);
       }
-      .policy-contact-item .icon {
-        font-size: 1.3rem;
+      .contact-info-item .icon {
+        font-size: 1.5rem;
         color: var(--gold);
         flex-shrink: 0;
         margin-top: 2px;
       }
-      .policy-contact-item .label {
+      .contact-info-item .label {
         display: block;
-        font-size: 0.72rem;
+        font-size: 0.74rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.09em;
         color: var(--text-faint);
-        margin-bottom: 4px;
+        margin-bottom: 5px;
       }
-      .policy-contact-item .value,
-      .policy-contact-item a {
+      .contact-info-item .value,
+      .contact-info-item a {
         color: var(--text-primary);
-        font-size: 0.96rem;
+        font-size: 1.02rem;
         font-weight: 600;
         line-height: 1.5;
       }
-      .policy-contact-item a:hover {
+      .contact-info-item a:hover {
         color: var(--gold);
       }
 
-      .policy-contact-actions {
+      /* ============================================================
+       CONTACT OPTIONS (action cards)
+    ============================================================ */
+      .contact-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .action-card {
+        background: linear-gradient(
+          180deg,
+          rgba(26, 21, 38, 0.78),
+          rgba(15, 12, 21, 0.6)
+        );
+        border: 1px solid var(--border-dim);
+        border-radius: var(--radius-lg);
+        padding: 36px 28px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.3);
+        transition: var(--transition);
+      }
+      .action-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--crimson), var(--gold));
+      }
+      .action-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--border-mid);
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.4),
+          0 0 34px var(--gold-glow);
+      }
+
+      .action-card-title {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+      }
+
+      .action-card-value {
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        margin-bottom: 22px;
+        word-break: break-word;
+      }
+
+      /* ============================================================
+       LOCATION SECTION
+    ============================================================ */
+      .location-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
+        gap: 10px 24px;
+        margin: 4px 0 20px;
+      }
+      .location-meta span {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+      }
+      .location-meta strong {
+        color: var(--text-primary);
+        font-weight: 600;
       }
 
-      /* Bottom notice */
-      .policy-final-notice {
-        max-width: 860px;
-        margin: 56px auto 0;
-        text-align: center;
-        background: linear-gradient(
-          135deg,
-          rgba(245, 166, 35, 0.09),
-          rgba(200, 16, 46, 0.07)
-        );
-        border: 1px solid var(--border-mid);
-        border-radius: var(--radius-lg);
-        padding: 36px 40px;
-        color: var(--text-primary);
-        font-size: 1rem;
-        line-height: 1.75;
-        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      /* ============================================================
+       CONTACT FORM
+    ============================================================ */
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
       }
-      .policy-final-notice .icon {
-        font-size: 1.9rem;
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      .form-group:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .form-label {
         display: block;
-        margin-bottom: 14px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-faint);
+        margin-bottom: 8px;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-dim);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        color: var(--text-primary);
+        transition: var(--transition);
+      }
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: var(--text-faint);
+        opacity: 0.8;
+      }
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .form-textarea {
+        resize: vertical;
+        min-height: 130px;
+        font-family: inherit;
+      }
+
+      .form-note {
+        font-size: 0.86rem;
+        color: var(--text-faint);
+        line-height: 1.7;
+        margin-top: 20px;
+      }
+      .form-note a {
+        color: var(--gold-light);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .form-note a:hover {
         color: var(--gold);
+      }
+
+      .form-status {
+        font-size: 0.9rem;
+        color: var(--gold-light);
+        margin-top: 16px;
+        display: none;
+      }
+      .form-status.visible {
+        display: block;
       }
 
       /* ============================================================
@@ -1006,6 +1105,9 @@
           grid-template-columns: 1fr 1fr;
           gap: 36px;
         }
+        .contact-actions-grid {
+          grid-template-columns: 1fr 1fr;
+        }
       }
 
       @media (max-width: 580px) {
@@ -1020,7 +1122,7 @@
       }
 
       /* ============================================================
-       RESPONSIVE — POLICY PAGE
+       RESPONSIVE — CONTACT PAGE
     ============================================================ */
       @media (max-width: 640px) {
         section {
@@ -1029,19 +1131,25 @@
         .policy-hero {
           padding: 120px 20px 60px;
         }
-        .policy-card {
+        .contact-card {
           padding: 34px 24px;
         }
-        .policy-card-icon {
+        .contact-card-icon {
           width: 54px;
           height: 54px;
           font-size: 1.4rem;
         }
-        .policy-contact-grid {
+        .contact-info-grid {
           grid-template-columns: 1fr;
         }
-        .policy-final-notice {
-          padding: 28px 24px;
+        .contact-actions-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .contact-block {
+          margin-top: 48px;
         }
         .btn-primary,
         .btn-secondary {
@@ -1073,8 +1181,10 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html#about">Workshop</a></li>
         <li><a href="index.html#gallery">Gallery</a></li>
-        <li><a href="contact.html">Contact</a></li>
         <li><a href="privacy-policy.html">Privacy</a></li>
+        <li>
+          <a href="contact.html" class="current" aria-current="page">Contact</a>
+        </li>
         <li>
           <a href="index.html#register" class="nav-cta">Register Now</a>
         </li>
@@ -1106,446 +1216,69 @@
             <span>Back to Home</span>
           </a>
 
-          <h1 class="policy-hero-title">Privacy Policy</h1>
+          <h1 class="policy-hero-title">Contact Us</h1>
 
           <p class="policy-hero-subtitle">
-            Your privacy and trust are important to us. This page explains how
-            Bliss Out Dance Studio collects, uses, stores and protects your
-            information, along with our refund, cancellation and digital
-            delivery policies.
+            Have a question about our Garba workshop, registration, batches,
+            payments, or anything else? We're here to help.
           </p>
 
           <div class="policy-hero-meta">
-            <span aria-hidden="true">🗒</span>
-            <span>Effective Date: <strong>4 August 2026</strong></span>
+            <span aria-hidden="true">📍</span>
+            <span
+              >Bliss Out Dance Studio ·
+              <strong>Khandwa, Madhya Pradesh</strong></span
+            >
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-         POLICY CONTENT
+         CONTACT CONTENT
     ============================================================ -->
-      <section class="policy-content">
+      <section class="contact-content">
         <div class="container">
-          <div class="policy-cards">
-            <!-- ============================================
-                 CARD 1 — PRIVACY POLICY
-            ============================================= -->
-            <article
-              class="policy-card reveal"
-              id="privacy"
-              aria-labelledby="privacy-heading"
-            >
-              <div class="policy-card-icon" aria-hidden="true">🛡</div>
-              <h2 class="policy-card-title" id="privacy-heading">
-                Privacy Policy
-              </h2>
-              <div class="policy-card-divider"></div>
-
-              <p class="policy-text">
-                At Bliss Out Dance Studio, protecting the trust of every dancer
-                who joins us matters as much as the choreography itself. This
-                section explains what information we collect, why we collect it,
-                and how it is kept safe.
-              </p>
-
-              <h3 class="policy-subhead">Information We Collect</h3>
-              <p class="policy-text">
-                When you register for a workshop or reach out to us, we may
-                collect the following details:
-              </p>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Full Name
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Email Address
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Phone Number
-                </li>
-                <li><span class="check" aria-hidden="true">✦</span> Age</li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Dance Level
-                </li>
-                <li><span class="check" aria-hidden="true">✦</span> City</li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Payment
-                  details, processed securely via Razorpay
-                </li>
-              </ul>
-
-              <div class="policy-note">
-                <span class="icon" aria-hidden="true">🔒</span>
-                <span
-                  ><strong
-                    >Your card, UPI and banking details are never stored on our
-                    servers.</strong
-                  >
-                  All payments are handled directly and securely by Razorpay's
-                  payment infrastructure.</span
-                >
+          <!-- ============================================
+               CONTACT INFORMATION
+          ============================================= -->
+          <div class="contact-block reveal" id="contact-info">
+            <div class="contact-card">
+              <div class="contact-card-icon is-inline" aria-hidden="true">
+                ✉
               </div>
-
-              <h3 class="policy-subhead">How We Use Your Information</h3>
-              <p class="policy-text">
-                The information you share with us is used only to serve you
-                better, specifically to:
-              </p>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Process and
-                  confirm your Garba workshop registration
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Verify
-                  successful payment
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Generate and
-                  deliver your digital Garba Pass
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Communicate
-                  updates and reminders via WhatsApp
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Communicate
-                  confirmations and updates via Email
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Provide
-                  customer support when you reach out to us
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Manage
-                  batches, schedules and overall workshop logistics
-                </li>
-              </ul>
-
-              <h3 class="policy-subhead">Data Security</h3>
-              <p class="policy-text">
-                We follow reasonable, industry-appropriate security measures to
-                protect your personal information from unauthorized access,
-                alteration or disclosure. While no method of transmission over
-                the internet is completely infallible, we take your privacy
-                seriously and work to safeguard it at every step. Your personal
-                data is
-                <strong>never sold, rented or traded</strong> to any third
-                party.
-              </p>
-
-              <h3 class="policy-subhead">Third-Party Services</h3>
-              <p class="policy-text">
-                To operate smoothly, Bliss Out Dance Studio relies on a small
-                number of trusted third-party services, including:
-              </p>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Razorpay</strong> — for secure payment processing
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Email service providers</strong> — for confirmations
-                  and updates
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>WhatsApp Business Platform</strong> — for pass
-                  delivery and communication
-                </li>
-              </ul>
-              <p class="policy-text">
-                Each of these services operates under its own privacy policy,
-                and we encourage you to review them to understand how they
-                handle your data.
-              </p>
-            </article>
-
-            <!-- ============================================
-                 CARD 2 — REFUND & CANCELLATION POLICY
-            ============================================= -->
-            <article
-              class="policy-card reveal"
-              id="refund"
-              aria-labelledby="refund-heading"
-            >
-              <div class="policy-card-icon" aria-hidden="true">↺</div>
-              <h2 class="policy-card-title" id="refund-heading">
-                Refund & Cancellation Policy
-              </h2>
-              <div class="policy-card-divider"></div>
-
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  Registration fees are generally
-                  <strong>non-refundable</strong> once payment has been
-                  successfully completed.
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> In the case of
-                  duplicate payments, the extra amount will be refunded after
-                  verification.
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> If Bliss Out
-                  Dance Studio cancels a workshop for any reason, all eligible
-                  participants will receive a <strong>full refund</strong>.
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> If your
-                  payment succeeds but registration fails due to a technical
-                  issue, please contact us with your payment details. Once
-                  verified, we will provide an appropriate resolution, including
-                  a refund where applicable.
-                </li>
-              </ul>
-            </article>
-
-            <!-- ============================================
-                 CARD 3 — SHIPPING & DELIVERY POLICY
-            ============================================= -->
-            <article
-              class="policy-card reveal"
-              id="shipping"
-              aria-labelledby="shipping-heading"
-            >
-              <div class="policy-card-icon" aria-hidden="true">📦</div>
-              <h2 class="policy-card-title" id="shipping-heading">
-                Shipping & Delivery Policy
-              </h2>
-              <div class="policy-card-divider"></div>
-
-              <p class="policy-text">
-                Bliss Out Dance Studio sells only digital workshop
-                registrations. <strong>No physical products are shipped</strong>
-                or delivered.
-              </p>
-
-              <h3 class="policy-subhead">What You Receive</h3>
-              <p class="policy-text">
-                Once your payment has been verified, you will receive:
-              </p>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  Registration Confirmation
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Garba Pass
-                  (PDF)
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Email
-                  Confirmation
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> WhatsApp Pass
-                  (when available)
-                </li>
-              </ul>
-              <p class="policy-text">
-                Delivery usually happens within a few minutes of successful
-                payment. If you haven't received your confirmation, please reach
-                out to the studio and we'll help sort it out right away.
-              </p>
-            </article>
-
-            <!-- ============================================
-                 TERMS & CONDITIONS
-            ============================================= -->
-            <article
-              class="policy-card reveal"
-              id="terms"
-              aria-labelledby="terms-heading"
-            >
-              <div class="policy-card-icon" aria-hidden="true">📜</div>
-              <h2 class="policy-card-title" id="terms-heading">
-                Terms & Conditions
-              </h2>
-              <div class="policy-card-divider"></div>
-
-              <p class="policy-text">
-                These Terms & Conditions govern your use of this website and
-                your registration for Bliss Out Dance Studio's Garba workshops.
-                By registering for a workshop, you agree to the terms explained
-                below.
-              </p>
-
-              <h3 class="policy-subhead">1. Acceptance of Terms</h3>
-              <p class="policy-text">
-                By registering for a workshop or using this website, you agree
-                to these Terms & Conditions. Please read them carefully before
-                proceeding with your registration.
-              </p>
-
-              <h3 class="policy-subhead">2. Workshop Registration</h3>
-              <p class="policy-text">
-                Workshop registration is done online through this website. You
-                are responsible for providing accurate and complete details,
-                such as your name, contact number and email address, at the time
-                of registration.
-              </p>
-
-              <h3 class="policy-subhead">3. Eligibility</h3>
-              <p class="policy-text">
-                Our Garba workshops are open to all age groups, subject to any
-                age requirement mentioned for a particular batch. Participants
-                below 18 years of age should register with the consent of a
-                parent or guardian.
-              </p>
-
-              <h3 class="policy-subhead">4. Payments</h3>
-              <p class="policy-text">
-                All workshop payments are made online through Razorpay. A seat
-                is not held or reserved for you until the payment is completed
-                successfully.
-              </p>
-
-              <h3 class="policy-subhead">5. Registration Confirmation</h3>
-              <p class="policy-text">
-                Your registration is confirmed
-                <strong
-                  >only after your payment is successfully received and
-                  verified</strong
-                >. Submitting the registration form alone, without completing
-                payment, does not guarantee you a seat.
-              </p>
-
-              <h3 class="policy-subhead">6. Batch Capacity</h3>
-              <p class="policy-text">
-                Seats in every batch are limited. Once a batch reaches full
-                capacity, registrations for that batch will be closed, even if
-                you have not yet completed your payment.
-              </p>
-
-              <h3 class="policy-subhead">7. Student Responsibilities</h3>
-              <p class="policy-text">
-                Students are expected to arrive on time, come prepared for
-                practice, and provide accurate registration details. You are
-                responsible for keeping your registration confirmation and Garba
-                Pass safe for entry.
-              </p>
-
-              <h3 class="policy-subhead">8. Code of Conduct</h3>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> Students must
-                  behave respectfully with instructors, staff and fellow
-                  participants at all times.
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span> The studio may
-                  refuse or cancel a registration in case of misconduct, without
-                  any refund.
-                </li>
-              </ul>
-
-              <h3 class="policy-subhead">9. Attendance</h3>
-              <p class="policy-text">
-                Students are encouraged to attend all sessions of their batch
-                regularly to get the full benefit of the workshop. Missing a
-                session does not entitle a student to an extra class or a
-                refund.
-              </p>
-
-              <h3 class="policy-subhead">10. Cancellation by Studio</h3>
-              <p class="policy-text">
-                Workshop timings may occasionally change due to unavoidable
-                circumstances such as venue availability, weather or instructor
-                availability. In such cases, Bliss Out Dance Studio will inform
-                registered students in advance, wherever possible.
-              </p>
-
-              <h3 class="policy-subhead">11. Intellectual Property</h3>
-              <p class="policy-text">
-                All choreography, dance sequences and training material taught
-                during the workshop belong to Bliss Out Dance Studio. They
-                should not be recorded and taught commercially without our
-                written permission.
-              </p>
-
-              <h3 class="policy-subhead">12. Limitation of Liability</h3>
-              <p class="policy-text">
-                Students must follow their instructor's guidance during all
-                sessions. Bliss Out Dance Studio is not liable for injuries
-                caused by not following safety instructions or instructor
-                guidance during the workshop.
-              </p>
-
-              <h3 class="policy-subhead">13. Privacy</h3>
-              <p class="policy-text">
-                Any personal information you share with us during registration
-                is collected, used and protected as explained in the Privacy
-                Policy above.
-              </p>
-
-              <h3 class="policy-subhead">14. Governing Law</h3>
-              <p class="policy-text">
-                These Terms & Conditions are governed by the laws of India. Any
-                disputes arising from them will be subject to the jurisdiction
-                of the courts in Khandwa, Madhya Pradesh.
-              </p>
-
-              <h3 class="policy-subhead">15. Contact Information</h3>
-              <p class="policy-text">
-                For any questions regarding these Terms & Conditions, you may
-                reach us at:
-              </p>
-              <ul class="policy-list">
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Studio:</strong> Bliss Out Dance Studio
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Location:</strong> Khandwa, Madhya Pradesh, India
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Email:</strong>
-                  <a href="mailto:blissout303@gmail.com"
-                    >blissout303@gmail.com</a
-                  >
-                </li>
-                <li>
-                  <span class="check" aria-hidden="true">✦</span>
-                  <strong>Phone:</strong>
-                  <a href="tel:+918964033641">+91 89640 33641</a>
-                </li>
-              </ul>
-            </article>
-
-            <!-- ============================================
-                 CARD 4 — CONTACT
-            ============================================= -->
-            <article
-              class="policy-card reveal"
-              id="policy-contact"
-              aria-labelledby="contact-heading"
-            >
-              <div class="policy-card-icon" aria-hidden="true">✉</div>
-              <h2 class="policy-card-title" id="contact-heading">
+              <h2 class="contact-card-title" id="contact-info-heading">
                 Get in Touch
               </h2>
-              <div class="policy-card-divider"></div>
+              <div class="contact-card-divider"></div>
 
-              <p class="policy-contact-lead">
-                Questions about this policy, your registration, or anything
-                else? We're happy to help.
-              </p>
-
-              <address class="policy-contact-grid">
-                <div class="policy-contact-item">
+              <address
+                class="contact-info-grid"
+                aria-labelledby="contact-info-heading"
+              >
+                <div class="contact-info-item">
                   <span class="icon" aria-hidden="true">⚲</span>
                   <div>
                     <span class="label">Studio</span>
                     <span class="value">Bliss Out Dance Studio</span>
                   </div>
                 </div>
-                <div class="policy-contact-item">
+                <div class="contact-info-item">
+                  <span class="icon" aria-hidden="true">◴</span>
+                  <div>
+                    <span class="label">Location</span>
+                    <span class="value"
+                      >Khandwa, Madhya Pradesh, India — 450001</span
+                    >
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <span class="icon" aria-hidden="true">🕻</span>
+                  <div>
+                    <span class="label">Phone</span>
+                    <a href="tel:+918964033641">+91 89640 33641</a>
+                  </div>
+                </div>
+                <div class="contact-info-item">
                   <span class="icon" aria-hidden="true">🖂</span>
                   <div>
                     <span class="label">Email</span>
@@ -1554,40 +1287,194 @@
                     >
                   </div>
                 </div>
-                <div class="policy-contact-item">
-                  <span class="icon" aria-hidden="true">🕻</span>
-                  <div>
-                    <span class="label">Phone</span>
-                    <a href="tel:+918964033641">+91 89640 33641</a>
-                  </div>
-                </div>
-                <div class="policy-contact-item">
-                  <span class="icon" aria-hidden="true">◴</span>
-                  <div>
-                    <span class="label">Location</span>
-                    <span class="value">Khandwa, Madhya Pradesh</span>
-                  </div>
-                </div>
               </address>
-
-              <div class="policy-contact-actions">
-                <a href="mailto:blissout303@gmail.com" class="btn-primary">
-                  <span>Email Us</span>
-                </a>
-                <a href="tel:+918964033641" class="btn-secondary">
-                  <span>Call the Studio</span>
-                </a>
-              </div>
-            </article>
+            </div>
           </div>
 
           <!-- ============================================
-               BOTTOM NOTICE
+               CONTACT OPTIONS
           ============================================= -->
-          <div class="policy-final-notice reveal">
-            <span class="icon" aria-hidden="true">🙏</span>
-            By using this website and registering for our workshops, you agree
-            to the policies described on this page.
+          <div class="contact-block reveal" id="contact-options">
+            <div class="contact-block-heading">
+              <h2 class="contact-card-title">Reach Us Instantly</h2>
+              <div class="contact-card-divider"></div>
+              <p>
+                Pick whichever way suits you best — we reply as quickly as we
+                can.
+              </p>
+            </div>
+
+            <div class="contact-actions-grid">
+              <div class="action-card">
+                <div class="contact-card-icon" aria-hidden="true">🕻</div>
+                <h3 class="action-card-title">Call Us</h3>
+                <p class="action-card-value">+91 89640 33641</p>
+                <a
+                  href="tel:+918964033641"
+                  class="btn-secondary btn-block"
+                  aria-label="Call Bliss Out Dance Studio at +91 89640 33641"
+                >
+                  <span>Call Now</span>
+                </a>
+              </div>
+
+              <div class="action-card">
+                <div class="contact-card-icon" aria-hidden="true">🖂</div>
+                <h3 class="action-card-title">Email Us</h3>
+                <p class="action-card-value">blissout303@gmail.com</p>
+                <a
+                  href="mailto:blissout303@gmail.com"
+                  class="btn-secondary btn-block"
+                  aria-label="Email Bliss Out Dance Studio at blissout303@gmail.com"
+                >
+                  <span>Send Email</span>
+                </a>
+              </div>
+
+              <div class="action-card">
+                <div class="contact-card-icon" aria-hidden="true">➤</div>
+                <h3 class="action-card-title">WhatsApp Us</h3>
+                <p class="action-card-value">+91 89640 33641</p>
+                <a
+                  href="https://wa.me/918964033641"
+                  class="btn-secondary btn-block"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Chat with Bliss Out Dance Studio on WhatsApp (opens in a new tab)"
+                >
+                  <span>Chat on WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================
+               LOCATION / STUDIO INFORMATION
+          ============================================= -->
+          <div class="contact-block reveal" id="visit-us">
+            <div class="contact-card">
+              <div class="contact-card-icon is-inline" aria-hidden="true">
+                ◴
+              </div>
+              <h2 class="contact-card-title" id="visit-us-heading">
+                Visit Our Studio
+              </h2>
+              <div class="contact-card-divider"></div>
+
+              <p class="contact-text">
+                <strong>Bliss Out Dance Studio</strong><br />
+                Khandwa, Madhya Pradesh, India
+              </p>
+
+              <div class="location-meta">
+                <span><strong>PIN:</strong> 450001</span>
+              </div>
+
+              <p class="contact-text">
+                Whether you have a question about the workshop, need help with
+                registration, or want to know more about our classes, feel free
+                to reach out.
+              </p>
+
+              <div style="margin-top: 28px">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Bliss+Out+Dance+Studio%2C+Khandwa%2C+Madhya+Pradesh"
+                  class="btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Get directions to Bliss Out Dance Studio on Google Maps (opens in a new tab)"
+                >
+                  <span aria-hidden="true">📍</span>
+                  <span>Get Directions</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================
+               CONTACT FORM
+          ============================================= -->
+          <div class="contact-block reveal" id="message-us">
+            <div class="contact-card">
+              <div class="contact-card-icon is-inline" aria-hidden="true">
+                🖋
+              </div>
+              <h2 class="contact-card-title" id="message-us-heading">
+                Send Us a Message
+              </h2>
+              <div class="contact-card-divider"></div>
+
+              <form id="contactForm" novalidate>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="fullName">Full Name</label>
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="Your name"
+                      autocomplete="name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="emailAddress"
+                      >Email Address</label
+                    >
+                    <input
+                      class="form-input"
+                      type="email"
+                      id="emailAddress"
+                      name="emailAddress"
+                      placeholder="you@example.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="phoneNumber"
+                    >Phone Number</label
+                  >
+                  <input
+                    class="form-input"
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="+91 XXXXX XXXXX"
+                    autocomplete="tel"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="messageBody">Message</label>
+                  <textarea
+                    class="form-textarea"
+                    id="messageBody"
+                    name="messageBody"
+                    placeholder="Tell us how we can help..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">
+                  <span>Send Message</span>
+                </button>
+
+                <p class="form-status" id="formStatus" role="status"></p>
+
+                <p class="form-note">
+                  This form opens your email app with your message ready to send
+                  to us — this page doesn't send messages on its own. Prefer to
+                  email directly? Write to
+                  <a href="mailto:blissout303@gmail.com"
+                    >blissout303@gmail.com</a
+                  >.
+                </p>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -1596,7 +1483,7 @@
     <!-- ============================================================
        FOOTER
   ============================================================ -->
-    <footer class="footer" id="contact">
+    <footer class="footer" id="footer-contact">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="nav-logo">
@@ -1747,6 +1634,46 @@
       reveals.forEach((r, i) => {
         r.classList.add(`reveal-delay-${Math.min((i % 4) + 1, 4)}`);
         observer.observe(r);
+      });
+
+      // ── CONTACT FORM (frontend-only mailto fallback) ─────────────
+      const contactForm = document.getElementById("contactForm");
+      const formStatus = document.getElementById("formStatus");
+
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("emailAddress").value.trim();
+        const phone = document.getElementById("phoneNumber").value.trim();
+        const message = document.getElementById("messageBody").value.trim();
+
+        if (!name || !email || !message) {
+          formStatus.textContent =
+            "Please fill in your name, email and message before sending.";
+          formStatus.classList.add("visible");
+          return;
+        }
+
+        const subject = `Website enquiry from ${name}`;
+        const bodyLines = [
+          message,
+          "",
+          `Name: ${name}`,
+          `Email: ${email}`,
+          phone ? `Phone: ${phone}` : null,
+        ].filter(Boolean);
+
+        const mailtoUrl =
+          "mailto:blissout303@gmail.com" +
+          `?subject=${encodeURIComponent(subject)}` +
+          `&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+
+        formStatus.textContent =
+          "Opening your email app with your message ready to send…";
+        formStatus.classList.add("visible");
+
+        window.location.href = mailtoUrl;
       });
     </script>
   </body>
