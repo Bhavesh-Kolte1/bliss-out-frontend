@@ -1214,7 +1214,7 @@
         align-items: center;
         justify-content: center;
         opacity: 0;
-        transform: scale(1.03);
+        transform: scale(1.01);
         transition:
           opacity 0.9s ease,
           transform 0.9s ease;
@@ -1242,37 +1242,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        /* Optional: smooth transition if you ever swap src dynamically */
         transition: background-image 0.3s ease;
-      }
-
-      .slide-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(7, 6, 10, 0.8) 0%,
-          transparent 60%
-        );
-      }
-
-      .slide-caption {
-        position: absolute;
-        bottom: 32px;
-        left: 40px;
-        right: 40px;
-      }
-
-      .slide-caption h3 {
-        font-family: var(--font-display);
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-
-      .slide-caption p {
-        color: var(--text-muted);
-        font-size: 0.9rem;
       }
 
       /* Slider controls */
@@ -1324,15 +1294,41 @@
         width: 24px;
       }
 
-      /* Thumbnail grid below */
-      .gallery-thumbs {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
+      /* Thumbnail carousel — 8 thumbs total, 4 visible at a time */
+      .gallery-thumbs-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         margin-top: 20px;
       }
 
+      .thumb-nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+
+      .thumb-nav-btn:disabled {
+        opacity: 0.3;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .gallery-thumbs-viewport {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .gallery-thumbs-track {
+        display: flex;
+        gap: 12px;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
       .gallery-thumb {
+        flex: 0 0 calc(25% - 9px);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -1362,17 +1358,11 @@
         .slider-container {
           aspect-ratio: 4/3;
         }
-        .gallery-thumbs {
-          grid-template-columns: repeat(4, 1fr);
+        .gallery-thumbs-track {
           gap: 8px;
         }
-        .slide-caption {
-          left: 20px;
-          right: 20px;
-          bottom: 20px;
-        }
-        .slide-caption h3 {
-          font-size: 1.1rem;
+        .gallery-thumb {
+          flex-basis: calc(25% - 6px);
         }
       }
 
@@ -2708,14 +2698,6 @@
                 class="slide-bg"
                 style="background-image: url(&quot;assets/gallery1.jpg&quot;)"
               ></div>
-              <div class="slide-overlay"></div>
-              <div class="slide-caption">
-                <h3>Opening Night — Navratri 2024</h3>
-                <p>
-                  Our students performing the classic Teen Taali Garba in
-                  perfect synchrony
-                </p>
-              </div>
             </div>
           </div>
           <!-- Slide 2 -->
@@ -2725,14 +2707,6 @@
                 class="slide-bg"
                 style="background-image: url(&quot;assets/gallery2.jpg&quot;)"
               ></div>
-              <div class="slide-overlay"></div>
-              <div class="slide-caption">
-                <h3>Dandiya Raas Practice Session</h3>
-                <p>
-                  Advanced batch learning partner dandiya patterns and group
-                  choreography
-                </p>
-              </div>
             </div>
           </div>
           <!-- Slide 3 -->
@@ -2742,14 +2716,6 @@
                 class="slide-bg"
                 style="background-image: url(&quot;assets/gallery3.jpg&quot;)"
               ></div>
-              <div class="slide-overlay"></div>
-              <div class="slide-caption">
-                <h3>Costume & Expression Workshop</h3>
-                <p>
-                  Students learning the art of mudras and bringing Garba
-                  expressions to life
-                </p>
-              </div>
             </div>
           </div>
           <!-- Slide 4 -->
@@ -2759,14 +2725,42 @@
                 class="slide-bg"
                 style="background-image: url(&quot;assets/gallery4.jpg&quot;)"
               ></div>
-              <div class="slide-overlay"></div>
-              <div class="slide-caption">
-                <h3>Certification Ceremony — 2025 Batch</h3>
-                <p>
-                  Celebrating 42 students who completed the One-Month Garba
-                  Workshop
-                </p>
-              </div>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="slide">
+            <div class="slide-content">
+              <div
+                class="slide-bg"
+                style="background-image: url(&quot;assets/gallery5.jpg&quot;)"
+              ></div>
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="slide">
+            <div class="slide-content">
+              <div
+                class="slide-bg"
+                style="background-image: url(&quot;assets/gallery6.jpg&quot;)"
+              ></div>
+            </div>
+          </div>
+          <!-- Slide 7 -->
+          <div class="slide">
+            <div class="slide-content">
+              <div
+                class="slide-bg"
+                style="background-image: url(&quot;assets/gallery7.jpg&quot;)"
+              ></div>
+            </div>
+          </div>
+          <!-- Slide 8 -->
+          <div class="slide">
+            <div class="slide-content">
+              <div
+                class="slide-bg"
+                style="background-image: url(&quot;assets/gallery8.jpg&quot;)"
+              ></div>
             </div>
           </div>
         </div>
@@ -2781,32 +2775,76 @@
             <div class="slider-dot" data-slide="1"></div>
             <div class="slider-dot" data-slide="2"></div>
             <div class="slider-dot" data-slide="3"></div>
+            <div class="slider-dot" data-slide="4"></div>
+            <div class="slider-dot" data-slide="5"></div>
+            <div class="slider-dot" data-slide="6"></div>
+            <div class="slider-dot" data-slide="7"></div>
           </div>
           <button class="slider-btn" id="nextSlide" aria-label="Next">›</button>
         </div>
 
-        <!-- Thumbnails -->
-        <div class="gallery-thumbs reveal">
-          <div
-            class="gallery-thumb active"
-            data-slide="0"
-            style="background-image: url(&quot;assets/gallery1.jpg&quot;)"
-          ></div>
-          <div
-            class="gallery-thumb"
-            data-slide="1"
-            style="background-image: url(&quot;assets/gallery2.jpg&quot;)"
-          ></div>
-          <div
-            class="gallery-thumb"
-            data-slide="2"
-            style="background-image: url(&quot;assets/gallery3.jpg&quot;)"
-          ></div>
-          <div
-            class="gallery-thumb"
-            data-slide="3"
-            style="background-image: url(&quot;assets/gallery4.jpg&quot;)"
-          ></div>
+        <!-- Thumbnails (4 of 8 visible — swipe/arrow between groups) -->
+        <div class="gallery-thumbs-wrapper reveal">
+          <button
+            class="slider-btn thumb-nav-btn"
+            id="prevThumbGroup"
+            aria-label="Previous thumbnails"
+          >
+            ‹
+          </button>
+
+          <div class="gallery-thumbs-viewport">
+            <div class="gallery-thumbs-track" id="thumbsTrack">
+              <div
+                class="gallery-thumb active"
+                data-slide="0"
+                style="background-image: url(&quot;assets/gallery1.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="1"
+                style="background-image: url(&quot;assets/gallery2.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="2"
+                style="background-image: url(&quot;assets/gallery3.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="3"
+                style="background-image: url(&quot;assets/gallery4.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="4"
+                style="background-image: url(&quot;assets/gallery5.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="5"
+                style="background-image: url(&quot;assets/gallery6.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="6"
+                style="background-image: url(&quot;assets/gallery7.jpg&quot;)"
+              ></div>
+              <div
+                class="gallery-thumb"
+                data-slide="7"
+                style="background-image: url(&quot;assets/gallery8.jpg&quot;)"
+              ></div>
+            </div>
+          </div>
+
+          <button
+            class="slider-btn thumb-nav-btn"
+            id="nextThumbGroup"
+            aria-label="Next thumbnails"
+          >
+            ›
+          </button>
         </div>
       </div>
     </section>
@@ -3445,11 +3483,26 @@
         reveals.forEach((r) => observer.observe(r));
 
         // ── IMAGE SLIDER ─────────────────────────────────────────────
+        // ── IMAGE SLIDER ─────────────────────────────────────────────
         const slides = document.querySelectorAll(".slide");
         const dots = document.querySelectorAll(".slider-dot");
         const thumbs = document.querySelectorAll(".gallery-thumb");
+        const thumbsTrack = document.getElementById("thumbsTrack");
+        const prevThumbBtn = document.getElementById("prevThumbGroup");
+        const nextThumbBtn = document.getElementById("nextThumbGroup");
+
+        const THUMBS_PER_VIEW = 4;
+        const totalThumbPages = Math.ceil(thumbs.length / THUMBS_PER_VIEW);
+
         let current = 0;
+        let thumbPage = 0;
         let autoPlay = null;
+
+        function updateThumbTrack() {
+          thumbsTrack.style.transform = `translateX(-${thumbPage * 100}%)`;
+          prevThumbBtn.disabled = thumbPage === 0;
+          nextThumbBtn.disabled = thumbPage === totalThumbPages - 1;
+        }
 
         function goToSlide(idx) {
           slides[current].classList.remove("active");
@@ -3459,6 +3512,10 @@
           slides[current].classList.add("active");
           dots[current].classList.add("active");
           thumbs[current].classList.add("active");
+
+          // Keep the active thumbnail's group in view
+          thumbPage = Math.floor(current / THUMBS_PER_VIEW);
+          updateThumbTrack();
         }
 
         function startAutoPlay() {
@@ -3470,6 +3527,7 @@
           startAutoPlay();
         }
 
+        updateThumbTrack();
         startAutoPlay();
 
         document.getElementById("prevSlide").addEventListener("click", () => {
@@ -3493,6 +3551,16 @@
             resetAutoPlay();
           }),
         );
+
+        // Manual thumbnail-group browsing (does not change the active slide)
+        prevThumbBtn.addEventListener("click", () => {
+          thumbPage = Math.max(0, thumbPage - 1);
+          updateThumbTrack();
+        });
+        nextThumbBtn.addEventListener("click", () => {
+          thumbPage = Math.min(totalThumbPages - 1, thumbPage + 1);
+          updateThumbTrack();
+        });
 
         // ── FAQ ──────────────────────────────────────────────────────
         document.querySelectorAll(".faq-item").forEach((item) => {
