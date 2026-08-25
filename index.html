@@ -1245,6 +1245,15 @@
         transition: background-image 0.3s ease;
       }
 
+      .slide-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #000;
+      }
+
       /* Slider controls */
       .slider-controls {
         display: flex;
@@ -1352,6 +1361,26 @@
       .gallery-thumb.active {
         border-color: var(--crimson);
         box-shadow: 0 0 0 2px var(--crimson);
+      }
+
+      .gallery-video-thumb {
+        position: relative;
+      }
+
+      .gallery-thumb-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+      }
+
+      .gallery-thumb-play {
+        position: relative;
+        z-index: 1;
+        color: var(--gold);
+        pointer-events: none;
       }
 
       @media (max-width: 640px) {
@@ -2772,6 +2801,20 @@
               ></div>
             </div>
           </div>
+          <!-- Slide 10 (Video) -->
+          <div class="slide">
+            <div class="slide-content">
+              <video
+                class="slide-video"
+                controls
+                playsinline
+                preload="metadata"
+              >
+                <source src="assets/gallery-video.mp4" type="video/mp4" />
+                Your browser does not support embedded video.
+              </video>
+            </div>
+          </div>
         </div>
 
         <!-- Slider Controls -->
@@ -2789,6 +2832,7 @@
             <div class="slider-dot" data-slide="6"></div>
             <div class="slider-dot" data-slide="7"></div>
             <div class="slider-dot" data-slide="8"></div>
+            <div class="slider-dot" data-slide="9"></div>
           </div>
           <button class="slider-btn" id="nextSlide" aria-label="Next">›</button>
         </div>
@@ -2850,6 +2894,17 @@
                 data-slide="8"
                 style="background-image: url(&quot;assets/gallery9.jpg&quot;)"
               ></div>
+              <div class="gallery-thumb gallery-video-thumb" data-slide="9">
+                <video
+                  class="gallery-thumb-video"
+                  src="assets/gallery-video.mp4"
+                  muted
+                  playsinline
+                  preload="auto"
+                  aria-hidden="true"
+                ></video>
+                <span class="gallery-thumb-play">▶</span>
+              </div>
             </div>
           </div>
 
@@ -3505,7 +3560,7 @@
         const thumbsTrack = document.getElementById("thumbsTrack");
         const prevThumbBtn = document.getElementById("prevThumbGroup");
         const nextThumbBtn = document.getElementById("nextThumbGroup");
-
+        const galleryVideo = document.querySelector(".slide-video");
         const THUMBS_PER_VIEW = 4;
         const totalThumbPages = Math.ceil(thumbs.length / THUMBS_PER_VIEW);
 
@@ -3521,6 +3576,8 @@
 
         function goToSlide(idx) {
           slides[current].classList.remove("active");
+          const leavingVideo = slides[current].querySelector(".slide-video");
+          if (leavingVideo) leavingVideo.pause();
           dots[current].classList.remove("active");
           thumbs[current].classList.remove("active");
           current = (idx + slides.length) % slides.length;
@@ -3540,6 +3597,19 @@
         function resetAutoPlay() {
           clearInterval(autoPlay);
           startAutoPlay();
+        }
+
+        // ── VIDEO ↔ AUTOPLAY CONTROLLER ────────────────────────────
+        if (galleryVideo) {
+          galleryVideo.addEventListener("play", () => {
+            clearInterval(autoPlay); // stop immediately, do not restart while playing
+          });
+          galleryVideo.addEventListener("pause", () => {
+            resetAutoPlay(); // resume normal 4500ms timer, no immediate advance
+          });
+          galleryVideo.addEventListener("ended", () => {
+            resetAutoPlay(); // resume timer, do not auto-replay the video
+          });
         }
 
         updateThumbTrack();
